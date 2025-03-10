@@ -14,7 +14,7 @@ Simple finite state machine impementation in godot, heavily inspired by [theshag
 - Walk
 - Run
 - Jump
-- Rest (only accessible in idle)
+- Rest
 
 ## Credits
 - [textures][2]
