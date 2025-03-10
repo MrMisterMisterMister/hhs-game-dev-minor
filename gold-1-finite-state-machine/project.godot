@@ -1,16 +1,8 @@
-; Engine configuration file.
-; It's best edited using the editor UI and not directly,
-; since the parameters that go here are not all obvious.
-;
-; Format:
-;   [section] ; section goes between []
-;   param=value ; assign values to parameters
-
 config_version=5
 
 [application]
 
-config/name="Finite State Machine - Gold 1"
+config/name="Gold 1 - Finite State Machine"
 run/main_scene="uid://dmvvwvp5bqimb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
