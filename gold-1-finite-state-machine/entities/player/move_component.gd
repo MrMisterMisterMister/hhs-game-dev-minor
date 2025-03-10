@@ -20,9 +20,11 @@ func get_movement_input() -> Vector2:
 func get_movement_direction() -> Vector3:
 	return (player.transform.basis * Vector3(get_movement_input().x, 0, get_movement_input().y)).normalized()
 
+
 func rotate_visuals(_delta) -> void:
 	var visual_dir = Vector3(get_movement_input().x, 0, get_movement_input().y).normalized()
 	visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(visual_dir.x, visual_dir.z), _delta * 10)
+
 
 func get_jump() -> float:
 	return rise_velocity if Input.is_action_just_pressed('jump') else 0
