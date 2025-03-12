@@ -1,5 +1,5 @@
 # Finite State Machine - Gold 1 Achievement
-Simple finite state machine impementation in godot, heavily inspired by [theshaggydev][1].
+A simple finite state machine impementation in godot v4.4, heavily inspired by [theshaggydev][1].
 
 ## Features
 - Movement: Use WASD for basic player movement.
