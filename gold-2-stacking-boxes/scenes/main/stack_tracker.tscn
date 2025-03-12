@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0gay8yiretuq"]
+
+[ext_resource type="Script" uid="uid://c30oc8jq87dww" path="res://scripts/controllers/stack_tracker.gd" id="1_kgwgt"]
+
+[node name="StackTracker" type="RayCast3D"]
+script = ExtResource("1_kgwgt")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b18hhfibww7pa"]
+
+[ext_resource type="Script" uid="uid://b1ffuyychvnfe" path="res://scripts/controllers/stackables_generator.gd" id="1_hfqrp"]
+
+[node name="StackablesGenerator" type="Node3D"]
+script = ExtResource("1_hfqrp")
+import_path = "food"
+export_path = "food"

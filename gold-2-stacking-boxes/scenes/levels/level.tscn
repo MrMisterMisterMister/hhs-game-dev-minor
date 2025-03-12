@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://d4ep0xpmdtmsn"]
+
+[ext_resource type="Script" uid="uid://c3leynfrtmlcp" path="res://scripts/levels/level.gd" id="1_b2cq8"]
+[ext_resource type="PackedScene" uid="uid://kyeyftqrp04u" path="res://scenes/main/spawner.tscn" id="1_xb4v1"]
+[ext_resource type="PackedScene" uid="uid://b0usmrxr3qtt8" path="res://scenes/environment/bowl.tscn" id="2_urvlt"]
+[ext_resource type="PackedScene" uid="uid://d0kymndqcjj5l" path="res://scenes/environment/table.tscn" id="3_d4w6o"]
+[ext_resource type="PackedScene" uid="uid://c0gay8yiretuq" path="res://scenes/main/stack_tracker.tscn" id="4_mbbpy"]
+[ext_resource type="PackedScene" uid="uid://ckdrmnhkcvtjc" path="res://scenes/main/camera_controller.tscn" id="4_urvlt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gjl0y"]
+sky_curve = 1.63925
+
+[sub_resource type="Sky" id="Sky_vnv7o"]
+sky_material = SubResource("ProceduralSkyMaterial_gjl0y")
+
+[sub_resource type="Environment" id="Environment_gjl0y"]
+background_mode = 1
+sky = SubResource("Sky_vnv7o")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d4w6o"]
+size = Vector3(1000, 1, 1000)
+
+[node name="Level" type="Node3D" node_paths=PackedStringArray("spawner", "stack_tracker", "camera_controller")]
+process_mode = 1
+script = ExtResource("1_b2cq8")
+spawner = NodePath("Spawner")
+stack_tracker = NodePath("StackTracker")
+camera_controller = NodePath("CameraController")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gjl0y")
+
+[node name="Bowl" parent="." instance=ExtResource("2_urvlt")]
+transform = Transform3D(4, 0, 0, 0, 3, 0, 0, 0, 4, 0, 4.84613, 0)
+
+[node name="Table" parent="." instance=ExtResource("3_d4w6o")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_d4w6o")
+
+[node name="Spawner" parent="." instance=ExtResource("1_xb4v1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+path_to_stackables = "food"
+
+[node name="StackTracker" parent="." instance=ExtResource("4_mbbpy")]
+
+[node name="CameraController" parent="." instance=ExtResource("4_urvlt")]
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
