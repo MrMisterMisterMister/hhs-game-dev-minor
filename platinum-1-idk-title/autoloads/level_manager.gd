@@ -53,5 +53,5 @@ func change_level(index: int) -> void:
 
 func exit_level() -> void:
 	if current_level_instance:
-		current_level_instance.get_parent().remove_child(current_level_instance)
+		parent.remove_child(current_level_instance)
 		current_level_instance.queue_free()

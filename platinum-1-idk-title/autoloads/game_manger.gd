@@ -41,8 +41,8 @@ func _initialize() -> void:
 
 
 func _start_game():
-	main_menu.visible = !main_menu.visible
 	hud.visible = !hud.visible
+	main_menu.visible = !main_menu.visible
 	
 	LevelManager.change_level(0)
 
@@ -66,7 +66,11 @@ func _resume_game() -> void:
 
 
 func _end_game() -> void:
-	pass
+	LevelManager.exit_level()
+	
+	hud.visible = !hud.visible
+	main_menu.visible = !main_menu.visible
+	pause_menu.visible = !pause_menu.visible
 
 
 func _restart_game() -> void:
@@ -74,4 +78,4 @@ func _restart_game() -> void:
 
 
 func _exit_game() -> void:
-	pass
+	get_tree().quit()
