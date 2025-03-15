@@ -4,8 +4,10 @@ var hud: Control
 var main_menu: Control
 var pause_menu: Control
 
-
-@onready var is_paused: bool = get_tree().is_paused()
+var paused: bool:
+	set(value):
+		paused = value
+		get_tree().paused = value
 
 
 func _ready() -> void:
@@ -19,8 +21,9 @@ func _ready() -> void:
 	SignalManager.game_exited.connect(_exit_game)
 	
 	LevelManager.parent = self
+	paused = false
 	
-	print(is_paused)
+	print(paused)
 
 
 func _initialize() -> void:
@@ -29,6 +32,8 @@ func _initialize() -> void:
 	pause_menu = load("uid://btdakvc1nwm4c").instantiate()
 	
 	hud.visible = !hud.visible
+	
+	main_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	pause_menu.visible = !pause_menu.visible
@@ -48,34 +53,37 @@ func _start_game():
 
 
 func _pause_game() -> void:
-	is_paused = !is_paused
+	paused = !paused
 	pause_menu.visible = !pause_menu.visible
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	print("Game Paused: ", is_paused)
-	get_tree().paused = is_paused
+	print("Game Paused: ", paused)
 
 
 func _resume_game() -> void:
-	is_paused = !is_paused
+	paused = !paused
 	pause_menu.visible = !pause_menu.visible
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	print("Game Paused: ", is_paused)
-	get_tree().paused = is_paused
+	print("Game Paused: ", paused)
 
 
 func _end_game() -> void:
 	LevelManager.exit_level()
 	
+	paused = !paused
 	hud.visible = !hud.visible
 	main_menu.visible = !main_menu.visible
 	pause_menu.visible = !pause_menu.visible
 
 
 func _restart_game() -> void:
-	pass
+	paused = !paused
+	pause_menu.visible = !pause_menu.visible
+	
+	LevelManager.change_level(0)
 
 
 func _exit_game() -> void:
+	print("hello")
 	get_tree().quit()
