@@ -1,9 +1,14 @@
 extends Node
 
+enum Menus {NONE, MAIN, PAUSE, GAME_OVER, SETTINGS}
+
 var hud: Control
 var main_menu: Control
 var pause_menu: Control
 var game_over_menu: Control
+var settings_menu: Control
+var previous_menu: Menus = Menus.MAIN
+var current_menu: Menus = Menus.MAIN
 
 var paused: bool:
 	set(value):
@@ -13,19 +18,7 @@ var paused: bool:
 
 func _ready() -> void:
 	_initialize()
-	
-	SignalManager.game_started.connect(_start_game)
-	SignalManager.game_paused.connect(_pause_game)
-	SignalManager.game_resumed.connect(_resume_game)
-	SignalManager.game_ended.connect(_end_game)
-	SignalManager.game_over.connect(_game_over)
-	SignalManager.game_restarted.connect(_restart_game)
-	SignalManager.game_exited.connect(_exit_game)
-	
-	LevelManager.parent = self
-	paused = false
-	
-	print(paused)
+	_connect_signals()
 
 
 func _initialize() -> void:
@@ -33,72 +26,91 @@ func _initialize() -> void:
 	main_menu = load("uid://b2vrewtctsacx").instantiate()
 	pause_menu = load("uid://btdakvc1nwm4c").instantiate()
 	game_over_menu = load("uid://udlpp7j45uci").instantiate()
-	
-	hud.visible = !hud.visible
+	settings_menu = load("uid://gmmxbdt8ng3d").instantiate()
 	
 	main_menu.process_mode = Node.PROCESS_MODE_ALWAYS
-	
 	pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
-	pause_menu.visible = !pause_menu.visible
 	game_over_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
-	game_over_menu.visible = !game_over_menu.visible
-	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	settings_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	
 	add_child(hud)
 	add_child(main_menu)
 	add_child(pause_menu)
 	add_child(game_over_menu)
+	add_child(settings_menu)
+	
+	_set_menu_visibility(Menus.MAIN, current_menu, false)
+	
+	LevelManager.parent = self
+
+
+func _connect_signals() -> void:
+	SignalManager.game_started.connect(_start_game)
+	SignalManager.game_paused.connect(_pause_game)
+	SignalManager.game_resumed.connect(_resume_game)
+	SignalManager.game_ended.connect(_end_game)
+	SignalManager.game_over.connect(_game_over)
+	SignalManager.game_restarted.connect(_restart_game)
+	SignalManager.game_exited.connect(_exit_game)
+	SignalManager.game_settings.connect(_game_settings)
 
 
 func _start_game():
-	hud.visible = true
-	main_menu.visible = false
-	
-	LevelManager.change_level(0)
+	_set_menu_visibility(Menus.NONE, current_menu, false)
+	LevelManager.change_level(1)
 
 
 func _pause_game() -> void:
-	paused = !paused
-	pause_menu.visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	print("Game Paused: ", paused)
+	_set_menu_visibility(Menus.PAUSE, current_menu, true)
 
 
 func _resume_game() -> void:
-	paused = !paused
-	pause_menu.visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	print("Game Paused: ", paused)
+	_set_menu_visibility(Menus.NONE, current_menu, false)
 
 
 func _end_game() -> void:
-	LevelManager.exit_level()
-	
-	paused = !paused
-	hud.visible = false
-	main_menu.visible = true
-	pause_menu.visible = false
-	game_over_menu.visible = false
-
-
-func _game_over() -> void:
-	paused = !paused
-	game_over_menu.visible = true
-	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-
-func _restart_game() -> void:
-	paused = !paused
-	pause_menu.visible = false
-	game_over_menu.visible = false
-	
+	_set_menu_visibility(Menus.MAIN, current_menu, false)
 	LevelManager.change_level(0)
 
 
+func _game_over() -> void:
+	_set_menu_visibility(Menus.GAME_OVER, current_menu, true)
+
+
+func _restart_game() -> void:
+	_set_menu_visibility(Menus.NONE, current_menu, false)
+	LevelManager.change_level(1)
+
+
 func _exit_game() -> void:
-	print("hello")
 	get_tree().quit()
+
+
+func _game_settings() -> void:
+	if current_menu == Menus.SETTINGS:
+		_return_to_previous_menu()
+		return
+		
+	_set_menu_visibility(Menus.SETTINGS, current_menu, true)
+
+
+func _return_to_previous_menu() -> void:
+	var should_pause = previous_menu in [Menus.PAUSE, Menus.GAME_OVER]
+	_set_menu_visibility(previous_menu, current_menu, should_pause)
+
+
+func _set_menu_visibility(menu: Menus, prev_menu: Menus, set_pause: bool) -> void:
+	paused = set_pause
+	current_menu = menu
+	previous_menu = prev_menu
+	
+	print("Current Menu", current_menu)
+	print("Previous Menu", previous_menu)
+	
+	hud.visible = menu not in [Menus.MAIN, Menus.SETTINGS]
+	main_menu.visible = menu == Menus.MAIN
+	pause_menu.visible = menu == Menus.PAUSE
+	game_over_menu.visible = menu == Menus.GAME_OVER
+	settings_menu.visible = menu == Menus.SETTINGS
+	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if menu != Menus.NONE else Input.MOUSE_MODE_CAPTURED

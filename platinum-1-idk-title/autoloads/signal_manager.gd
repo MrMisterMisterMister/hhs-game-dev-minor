@@ -9,7 +9,6 @@ signal game_restarted
 signal game_exited
 signal game_settings
 
-signal level_changed(index: int)
 signal level_failed
 signal level_completed
 

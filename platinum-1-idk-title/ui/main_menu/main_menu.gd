@@ -6,7 +6,7 @@ func _on_start_button_button_up() -> void:
 
 
 func _on_settings_button_button_up() -> void:
-	pass # Replace with function body.
+	SignalManager.game_settings.emit()
 
 
 func _on_exit_button_button_up() -> void:

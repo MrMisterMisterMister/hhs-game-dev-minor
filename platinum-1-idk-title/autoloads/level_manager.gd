@@ -9,7 +9,7 @@ var current_level_instance: Node3D
 func _ready() -> void:
 	_load_levels("res://levels/")
 	
-	SignalManager.level_changed.connect(change_level)
+	change_level(0)
 
 
 func _load_levels(path: String) -> void:
@@ -28,7 +28,6 @@ func _load_levels(path: String) -> void:
 			print("Found level at: ", path + level_path)
 			
 		level_path = dir.get_next()
-	
 
 
 func change_level(index: int) -> void:
@@ -45,8 +44,6 @@ func change_level(index: int) -> void:
 	current_level_id = index
 	current_level_instance = level.instantiate()
 	current_level_instance.process_mode = Node.PROCESS_MODE_PAUSABLE
-	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	parent.add_child(current_level_instance)
 

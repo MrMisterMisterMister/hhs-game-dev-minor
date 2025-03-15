@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://8kypkaui4jyl"]
+
+[ext_resource type="Script" uid="uid://csyfen88k8ywr" path="res://levels/level_000.gd" id="1_4uxqt"]
+[ext_resource type="Texture2D" uid="uid://bchscpcqunute" path="res://assets/textures/dark/texture_09.png" id="2_nav82"]
+[ext_resource type="PackedScene" uid="uid://04vwn8fh6w58" path="res://assets/entities/knight/Knight.glb" id="3_tdtwa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nkpam"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_1ogsn"]
+sky_material = SubResource("ProceduralSkyMaterial_nkpam")
+
+[sub_resource type="Environment" id="Environment_b1w1w"]
+background_mode = 2
+sky = SubResource("Sky_1ogsn")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7gyb"]
+albedo_texture = ExtResource("2_nav82")
+uv1_triplanar = true
+
+[node name="Level000" type="Node3D"]
+script = ExtResource("1_4uxqt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b1w1w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_m7gyb")
+size = Vector3(1000, 1, 1000)
+
+[node name="Knight" parent="." instance=ExtResource("3_tdtwa")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4516, 2.38258)
