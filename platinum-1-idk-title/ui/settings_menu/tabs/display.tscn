@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwprk6p4dh68f"]
+[gd_scene load_steps=6 format=3 uid="uid://bwprk6p4dh68f"]
 
 [ext_resource type="Script" uid="uid://dgbxjaubk8iss" path="res://ui/settings_menu/tabs/display.gd" id="1_m3qch"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3qch"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mqlk8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57iii"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7ija"]
 
 [node name="Display" type="Control"]
 layout_mode = 3
@@ -19,9 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -31,9 +37,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_m3qch")
 
 [node name="FullscreenSetting" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -47,10 +54,10 @@ text = "Fullscreen"
 [node name="FullscreenCheckbox" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(150, 0)
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting"]
 layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_mqlk8")
 
 [node name="BorderlessSetting" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -65,10 +72,10 @@ text = "Borderless"
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(150, 0)
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting"]
 layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_57iii")
 
 [node name="Resolution" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -83,10 +90,16 @@ text = "Resolution"
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(150, 0)
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_g7ija")
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_m3qch")
 
 [connection signal="toggled" from="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting/FullscreenCheckbox" to="." method="_on_fullscreen_checkbox_toggled"]
 [connection signal="toggled" from="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting/BorderlessCheckbox" to="." method="_on_borderless_checkbox_toggled"]
