@@ -61,6 +61,8 @@ func _start_game():
 
 
 func _pause_game() -> void:
+	if current_menu == Menus.MAIN:
+		return
 	_set_menu_visibility(Menus.PAUSE, current_menu, true)
 
 
