@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwprk6p4dh68f"]
 
-[ext_resource type="Script" uid="uid://dgbxjaubk8iss" path="res://ui/settings_menu/tabs/display.gd" id="1_m3qch"]
+[ext_resource type="Script" uid="uid://dgbxjaubk8iss" path="res://ui/settings_menu/tabs/display/display.gd" id="1_m3qch"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3qch"]
 
@@ -37,7 +37,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_m3qch")
@@ -48,7 +47,7 @@ layout_mode = 2
 [node name="FullscreenLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "Fullscreen"
 
 [node name="FullscreenCheckbox" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting"]
@@ -65,7 +64,7 @@ layout_mode = 2
 [node name="BorderlessLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "Borderless"
 
 [node name="BorderlessCheckbox" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting"]
@@ -83,7 +82,7 @@ layout_mode = 2
 [node name="ResolutionLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "Resolution"
 
 [node name="ResolutionButton" type="OptionButton" parent="MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
@@ -96,7 +95,6 @@ theme_override_constants/separation = 25
 theme_override_styles/separator = SubResource("StyleBoxEmpty_g7ija")
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_m3qch")

@@ -19,9 +19,9 @@ func _input(event: InputEvent) -> void:
 		rotation.x -= event.relative.y * mouse_sens
 		rotation.x  = clamp(rotation.x, min_vertical_angle, max_vertical_angle)
 	
-	if event.is_action_pressed("wheel_up"):
+	if event.is_action_pressed("zoom_in"):
 		spring_arm.spring_length -= 0.5
-	if event.is_action_pressed("wheel_down"):
+	if event.is_action_pressed("zoom_out"):
 		spring_arm.spring_length += 0.5
 	
 	if event.is_action_pressed("toggle_mouse_capture"):

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cer3rjq3uh0df"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5g0c5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_daflm"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ACTION"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5g0c5")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(215, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+toggle_mode = true
+text = "ACTION_KEY"
+
+[node name="VSeparator2" type="VSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_daflm")
