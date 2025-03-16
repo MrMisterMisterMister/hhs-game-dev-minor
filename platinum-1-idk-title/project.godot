@@ -22,6 +22,11 @@ InputManager="*res://autoloads/input_manager.gd"
 GameManger="*res://autoloads/game_manger.gd"
 LevelManager="*res://autoloads/level_manager.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [input]
 
 move_forward={
