@@ -21,6 +21,7 @@ func _ready() -> void:
 	_connect_signals()
 
 
+
 func _initialize() -> void:
 	hud = load("uid://di8uvwjy31iqg").instantiate()
 	main_menu = load("uid://b2vrewtctsacx").instantiate()
