@@ -1,4 +1,4 @@
 ## Credits
-- [window modes][1]
+- [settings menu][1]
 
-[1]: https://www.youtube.com/watch?v=YsdkcPV0BAo
+[1]: https://www.youtube.com/playlist?list=PLhBqFleCVBkXQiE8Nm4Co_1iJJ4L7UIzr
