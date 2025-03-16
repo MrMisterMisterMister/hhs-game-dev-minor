@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://gmmxbdt8ng3d"]
+[gd_scene load_steps=6 format=3 uid="uid://gmmxbdt8ng3d"]
 
 [ext_resource type="Script" uid="uid://c3ryyhgrfpkhr" path="res://ui/settings_menu/settings_menu.gd" id="1_cobfr"]
 [ext_resource type="PackedScene" uid="uid://bwprk6p4dh68f" path="res://ui/settings_menu/tabs/display/display.tscn" id="2_kvsec"]
 [ext_resource type="PackedScene" uid="uid://dx2nsaq16e2s2" path="res://ui/settings_menu/tabs/controls/controls.tscn" id="3_2adas"]
+[ext_resource type="PackedScene" uid="uid://b78wrxm3fvgkb" path="res://ui/settings_menu/tabs/sound/sound.tscn" id="4_424ss"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2adas"]
 
@@ -44,9 +45,10 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
 tab_alignment = 1
-current_tab = 0
+current_tab = 2
 
 [node name="Display" type="TabBar" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -59,6 +61,13 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="Controls" parent="MarginContainer/VBoxContainer/TabContainer/Controls" instance=ExtResource("3_2adas")]
+layout_mode = 1
+
+[node name="Sound" type="TabBar" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Sound" parent="MarginContainer/VBoxContainer/TabContainer/Sound" instance=ExtResource("4_424ss")]
 layout_mode = 1
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]

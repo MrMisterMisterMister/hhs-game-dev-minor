@@ -12,7 +12,6 @@ func _ready() -> void:
 	for action in all_actions:
 		if action.begins_with("ui"):
 			continue
-		
 		custom_actions.append(action)
 
 	_load_rebinds()
@@ -55,14 +54,6 @@ func _load_rebinds():
 		add_child(rebind_item_instance)
 	
 	_add_separator()
-
-
-func _add_separator():
-	var h_separator = HSeparator.new()
-	h_separator.add_theme_constant_override("separation", 50)
-	h_separator.add_theme_stylebox_override("separator", StyleBoxEmpty.new())
-	
-	add_child(h_separator)
 
 
 func _on_rebind_button_toggle(toggle_on: bool, action: String, button: Button) -> void:
@@ -109,3 +100,11 @@ func _set_new_binding(event: InputEvent) -> void:
 func _clear_children():
 	for child in get_children():
 		child.queue_free()
+
+
+func _add_separator():
+	var h_separator = HSeparator.new()
+	h_separator.add_theme_constant_override("separation", 50)
+	h_separator.add_theme_stylebox_override("separator", StyleBoxEmpty.new())
+	
+	add_child(h_separator)

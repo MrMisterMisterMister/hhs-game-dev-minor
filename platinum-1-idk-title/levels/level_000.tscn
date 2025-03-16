@@ -12,7 +12,8 @@ ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 sky_material = SubResource("ProceduralSkyMaterial_nkpam")
 
 [sub_resource type="Environment" id="Environment_b1w1w"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.0099, 0.0633, 0.09, 1)
 sky = SubResource("Sky_1ogsn")
 tonemap_mode = 2
 glow_enabled = true
@@ -28,7 +29,7 @@ script = ExtResource("1_4uxqt")
 environment = SubResource("Environment_b1w1w")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0.458348, -0.887315, 0.0508747, 0.1998, 0.158646, 0.966908, 0, 1.48991, 1.37097)
 shadow_enabled = true
 
 [node name="Floor" type="CSGBox3D" parent="."]
