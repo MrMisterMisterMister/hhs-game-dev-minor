@@ -23,8 +23,10 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 SignalManager="*res://autoloads/signal_manager.gd"
 InputManager="*res://autoloads/input_manager.gd"
-AudioManager="*res://autoloads/AudioManager.gd"
-GameManger="*res://autoloads/game_manger.gd"
+AudioManager="*res://autoloads/audio_manager.gd"
+SaveManager="*res://autoloads/save_manager.gd"
+SettingsManager="*res://autoloads/settings_manager.gd"
+GameManger="*res://autoloads/game_manager.gd"
 LevelManager="*res://autoloads/level_manager.gd"
 
 [display]

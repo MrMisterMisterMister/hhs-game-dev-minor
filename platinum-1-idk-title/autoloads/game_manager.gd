@@ -10,6 +10,7 @@ var settings_menu: Control
 var previous_menu: Menus = Menus.MAIN
 var current_menu: Menus = Menus.MAIN
 
+
 var paused: bool:
 	set(value):
 		paused = value
@@ -19,7 +20,6 @@ var paused: bool:
 func _ready() -> void:
 	_initialize()
 	_connect_signals()
-
 
 
 func _initialize() -> void:
@@ -43,6 +43,7 @@ func _initialize() -> void:
 	_set_menu_visibility(Menus.MAIN, current_menu, false)
 	
 	LevelManager.parent = self
+	SignalManager.settings_loaded.emit()
 
 
 func _connect_signals() -> void:
@@ -90,14 +91,16 @@ func _exit_game() -> void:
 
 
 func _game_settings() -> void:
+	SignalManager.settings_loaded.emit()
+	
 	if current_menu == Menus.SETTINGS:
-		_return_to_previous_menu()
+		return_to_previous_menu()
 		return
-		
+	
 	_set_menu_visibility(Menus.SETTINGS, current_menu, true)
 
 
-func _return_to_previous_menu() -> void:
+func return_to_previous_menu() -> void:
 	var should_pause = previous_menu in [Menus.PAUSE, Menus.GAME_OVER]
 	_set_menu_visibility(previous_menu, current_menu, should_pause)
 

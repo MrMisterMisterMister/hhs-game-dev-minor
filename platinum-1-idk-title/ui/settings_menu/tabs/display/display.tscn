@@ -76,6 +76,24 @@ layout_mode = 2
 theme_override_constants/separation = 25
 theme_override_styles/separator = SubResource("StyleBoxEmpty_57iii")
 
+[node name="VSyncSetting" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VSyncLabel" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/VSyncSetting"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "V-Sync"
+
+[node name="VSyncCheckbox" type="CheckBox" parent="MarginContainer/ScrollContainer/VBoxContainer/VSyncSetting"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/VSyncSetting"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_57iii")
+
 [node name="Resolution" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -101,4 +119,5 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_m3qch")
 
 [connection signal="toggled" from="MarginContainer/ScrollContainer/VBoxContainer/FullscreenSetting/FullscreenCheckbox" to="." method="_on_fullscreen_checkbox_toggled"]
 [connection signal="toggled" from="MarginContainer/ScrollContainer/VBoxContainer/BorderlessSetting/BorderlessCheckbox" to="." method="_on_borderless_checkbox_toggled"]
+[connection signal="toggled" from="MarginContainer/ScrollContainer/VBoxContainer/VSyncSetting/VSyncCheckbox" to="." method="_on_v_sync_checkbox_toggled"]
 [connection signal="item_selected" from="MarginContainer/ScrollContainer/VBoxContainer/Resolution/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
