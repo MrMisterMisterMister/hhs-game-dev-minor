@@ -37,4 +37,3 @@ func _load_sound_settings() -> void:
 	
 	for bus_name in audio:
 		_on_slider_value_changed(audio[bus_name], bus_name)
-		print(bus_name, audio[bus_name])
