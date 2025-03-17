@@ -37,6 +37,7 @@ func _on_v_sync_checkbox_toggled(toggled_on: bool) -> void:
 	v_sync_checkbox.button_pressed = toggled_on
 	SignalManager.v_sync_changed.emit(toggled_on)
 
+
 func _on_resolution_button_item_selected(index: int) -> void:
 	DisplayServer.window_set_size(resolutions.values()[index])
 	_centre_window()

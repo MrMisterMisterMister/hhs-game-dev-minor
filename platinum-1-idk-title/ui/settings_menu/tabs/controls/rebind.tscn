@@ -26,5 +26,4 @@ text = "ACTION_KEY"
 
 [node name="VSeparator2" type="VSeparator" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_daflm")

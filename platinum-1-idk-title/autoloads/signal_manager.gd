@@ -14,12 +14,17 @@ signal level_completed
 
 signal state_changed(state: State)
 
+# Settings
 signal fullscreen_changed
 signal borderless_changed
 signal v_sync_changed
 signal resolution_changed
+signal keybind_changed
+signal volume_changed
+
 signal settings_saved
 signal settings_loaded
+
 signal display_settings_loaded
-signal audio_settings_loaded
 signal control_settings_loaded
+signal sound_settings_loaded

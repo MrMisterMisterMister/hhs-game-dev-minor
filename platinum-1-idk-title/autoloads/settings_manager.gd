@@ -4,10 +4,8 @@ var fullscreen: bool
 var borderless: bool
 var v_sync: bool
 var resolution: int
-
-var display_settings: Dictionary
-var sound_settings: Dictionary
-var controls_settings: Dictionary
+var keybinds: Dictionary
+var volume: Dictionary
 
 var default_settings: Resource = preload("uid://c1jmxolxpbgq6")
 var config = ConfigFile.new()
@@ -31,14 +29,21 @@ func _load_settings() -> void:
 	var err = config.load(default_settings.SETTINGS_FILE_PATH)
 	
 	if err == OK:
-		fullscreen = config.get_value("display", "fullscreen")
-		borderless = config.get_value("display", "borderless")
-		v_sync = config.get_value("display", "v-sync")
-		resolution = config.get_value("display", "resolution")
+		if config.has_section("display"):
+			fullscreen = config.get_value("display", "fullscreen")
+			borderless = config.get_value("display", "borderless")
+			v_sync = config.get_value("display", "v-sync")
+			resolution = config.get_value("display", "resolution")
+		if config.has_section("controls"): 
+			keybinds = config.get_value("controls", "keybinds")
+		if config.has_section("sound"):
+			volume = config.get_value("sound", "volume")
 	else:
 		_load_defaut_settings()
 	
 	SignalManager.display_settings_loaded.emit()
+	SignalManager.control_settings_loaded.emit()
+	SignalManager.sound_settings_loaded.emit()
 
 
 func _load_defaut_settings() -> void:
@@ -46,11 +51,14 @@ func _load_defaut_settings() -> void:
 	borderless = default_settings.DEFAULT_BORDERLESS
 	v_sync = default_settings.DEFAULT_V_SYNC
 	resolution = default_settings.DEFAULT_RESOLUTION
+	volume = default_settings.DEFAULT_VOLUME
 
 
 func _export_settings() -> Dictionary:
 	return {
 		"display" : _export_display_settings(),
+		"controls" : {"keybinds" : keybinds},
+		"sound": {"volume": volume},
 	}
 
 
@@ -79,11 +87,30 @@ func _update_resolution(index: int) -> void:
 	resolution = index
 
 
+func _update_keybind(action: String, event: InputEvent) -> void:
+	if event is InputEventKey:
+		keybinds[action] = {
+			"type": "key",
+			"keycode": event.keycode,
+			"physical_keycode": event.physical_keycode,
+			}
+	elif event is InputEventMouseButton:
+		keybinds[action] = {
+			"type": "mouse_button",
+			"button_index": event.button_index
+			}
+
+
+func _update_volume(bus_name: String, value: float) -> void:
+	volume[bus_name] = value
+
+
 func _connect_signals() -> void:
 	SignalManager.fullscreen_changed.connect(_update_fullscreen)
 	SignalManager.borderless_changed.connect(_update_borderless)
 	SignalManager.v_sync_changed.connect(_update_v_sync)
 	SignalManager.resolution_changed.connect(_update_resolution)
-	
+	SignalManager.keybind_changed.connect(_update_keybind)
+	SignalManager.volume_changed.connect(_update_volume)
 	SignalManager.settings_saved.connect(_save_settings)
 	SignalManager.settings_loaded.connect(_load_settings)

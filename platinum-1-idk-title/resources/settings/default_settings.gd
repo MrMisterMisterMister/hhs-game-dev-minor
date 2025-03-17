@@ -5,6 +5,12 @@ const DEFAULT_BORDERLESS: bool = false # Is Borderless
 const DEFAULT_V_SYNC: bool = true # V-Sync turned on
 const DEFAULT_RESOLUTION: int = 0 # Index in resolutions
 
+var DEFAULT_VOLUME: Dictionary = {
+	"Master": 100.0,
+	"Music": 100.0,
+	"SFX": 100.0,
+}
+
 const SETTINGS_FILE_PATH: String = "user://settings.cfg"
 
 const RESOLUTIONS: Dictionary = {

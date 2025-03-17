@@ -1,10 +1,10 @@
 extends Control
 
-
 var custom_actions: Array[String]
 var rebind_buttons: Dictionary
 var currently_rebinding: String
 var waiting_for_input: bool
+
 
 func _ready() -> void:
 	var all_actions = InputMap.get_actions()
@@ -13,12 +13,13 @@ func _ready() -> void:
 		if action.begins_with("ui"):
 			continue
 		custom_actions.append(action)
-
+	
 	_load_rebinds()
+	
+	SignalManager.control_settings_loaded.connect(_load_keybind_settings)
+
 
 func _load_rebinds():
-	_add_separator()
-	
 	for action in custom_actions:
 		var events = InputMap.action_get_events(action)
 		var rebind_item_instance = load("uid://cer3rjq3uh0df").instantiate()
@@ -32,14 +33,6 @@ func _load_rebinds():
 			button.text = "Not Set"
 		elif events[0] is InputEventKey:
 			button.text = OS.get_keycode_string(events[0].physical_keycode)
-		elif events[0] is InputEventJoypadButton:
-			button.text = "Joypad Button " + str(events[0].button_index)
-		elif events[0] is InputEventJoypadMotion:
-			var axis_name = "Axis " + str(events[0].axis)
-			var direction = " +"
-			if events[0].axis_value < 0:
-				direction = " -"
-			button.text = "Joypad " + axis_name + direction
 		elif events[0] is InputEventMouseButton:
 			match events[0].button_index:
 				MOUSE_BUTTON_LEFT: button.text = "Left Mouse Button"
@@ -52,8 +45,6 @@ func _load_rebinds():
 		button.toggled.connect(_on_rebind_button_toggle.bind(action, button))
 		
 		add_child(rebind_item_instance)
-	
-	_add_separator()
 
 
 func _on_rebind_button_toggle(toggle_on: bool, action: String, button: Button) -> void:
@@ -75,13 +66,6 @@ func _input(event: InputEvent) -> void:
 	
 	if event is InputEventKey and event.pressed and not event.echo:
 		_set_new_binding(event)
-	elif event is InputEventJoypadButton and event.pressed:
-		_set_new_binding(event)
-	elif event is InputEventJoypadMotion and abs(event.axis_value) > 0.5:
-		# Normalize axis value to either -1.0 or 1.0
-		var normalized_event = event.duplicate()
-		normalized_event.axis_value = 1.0 if event.axis_value > 0 else -1.0
-		_set_new_binding(normalized_event)
 	elif event is InputEventMouseButton and event.pressed:
 		_set_new_binding(event)
 
@@ -93,18 +77,43 @@ func _set_new_binding(event: InputEvent) -> void:
 	set_process_input(false)
 	
 	# Reload to update button text
-	_clear_children()
-	_load_rebinds()
-
-
-func _clear_children():
-	for child in get_children():
-		child.queue_free()
-
-
-func _add_separator():
-	var h_separator = HSeparator.new()
-	h_separator.add_theme_constant_override("separation", 50)
-	h_separator.add_theme_stylebox_override("separator", StyleBoxEmpty.new())
+	_refresh()
 	
-	add_child(h_separator)
+	SignalManager.keybind_changed.emit(currently_rebinding, event)
+
+
+func _load_keybind_settings() -> void:
+	var keybinds = SettingsManager.keybinds
+	
+	print(keybinds)
+	
+	for action in custom_actions:
+		if not keybinds.has(action):
+			continue
+		var keybind = keybinds[action]
+		var event: InputEvent
+		
+		InputMap.action_erase_events(action)
+		
+		match keybind["type"]:
+			"key":
+				event = InputEventKey.new()
+				event.keycode = keybind.keycode
+				event.physical_keycode = keybind.physical_keycode
+			"mouse_button":
+				event = InputEventMouseButton.new()
+				event.button_index = keybind.button_index
+		
+		if event:
+			InputMap.action_add_event(action, event)
+	
+	_refresh()
+
+
+func _refresh():
+	for child in get_children():
+		if child is HSeparator:
+			continue
+		child.queue_free()
+	
+	_load_rebinds()

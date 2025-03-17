@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx2nsaq16e2s2"]
+[gd_scene load_steps=3 format=3 uid="uid://dx2nsaq16e2s2"]
 
 [ext_resource type="Script" uid="uid://bw8txx6mau4p6" path="res://ui/settings_menu/tabs/controls/rebinds.gd" id="1_ahx3f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahx3f"]
 
 [node name="Controls" type="Control"]
 layout_mode = 3
@@ -17,8 +19,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -27,3 +31,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("1_ahx3f")
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ahx3f")
