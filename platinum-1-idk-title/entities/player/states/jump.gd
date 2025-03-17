@@ -9,6 +9,7 @@ func enter() -> void:
 	super()
 	parent.velocity.y = get_jump()
 
+
 func physics_process(_delta: float) -> State:
 	parent.velocity.y += get_gravity() * _delta
 	

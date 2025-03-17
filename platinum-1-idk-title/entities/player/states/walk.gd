@@ -19,6 +19,7 @@ func input(_event: InputEvent) -> State:
 
 
 func physics_process(_delta: float) -> State:
+	
 	if get_jump() and parent.is_on_floor():
 		return jump_state
 	

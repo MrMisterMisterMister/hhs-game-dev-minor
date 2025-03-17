@@ -7,7 +7,7 @@ var resolution: int
 var keybinds: Dictionary
 var volume: Dictionary
 
-var default_settings: Resource = preload("uid://c1jmxolxpbgq6")
+var default_settings: Resource = preload("uid://0nifploiycfn")
 var config = ConfigFile.new()
 
 
