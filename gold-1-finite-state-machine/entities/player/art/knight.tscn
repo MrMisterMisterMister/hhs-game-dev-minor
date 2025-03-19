@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr0rjbdugv4cu"]
+
+[ext_resource type="PackedScene" uid="uid://c1wlvuu6jnchi" path="res://assets/entities/player/Knight.glb" id="1_25764"]
+
+[node name="Knight" instance=ExtResource("1_25764")]
+
+[node name="Skeleton3D" parent="Rig" index="0"]
+bones/1/position = Vector3(-0.0104514, 0.327438, 0.119469)
+bones/1/rotation = Quaternion(-0.530451, 0.469229, -0.511723, 0.486401)
+bones/2/rotation = Quaternion(-0.0078173, 0.166956, 0.0588305, 0.984177)
+bones/3/rotation = Quaternion(0.172248, -0.14251, -0.0120483, 0.974616)
+bones/4/position = Vector3(0.214432, 0.12074, 0.0524217)
+bones/4/rotation = Quaternion(-0.272998, -0.662953, -0.693061, -0.0750386)
+bones/5/rotation = Quaternion(3.53796e-08, -3.61078e-08, -0.498082, 0.86713)
+bones/7/rotation = Quaternion(0.26708, -0.395015, 0.110106, 0.872071)
+bones/8/position = Vector3(0.0185164, 0.104901, -0.0118181)
+bones/8/rotation = Quaternion(-0.00978687, 0.000984348, -0.529576, 0.848206)
+bones/14/position = Vector3(-0.257968, 0.0073854, 0.0641643)
+bones/14/rotation = Quaternion(-0.171405, 0.560051, 0.799277, 0.13461)
+bones/15/rotation = Quaternion(1.25744e-07, 5.42764e-08, 0.753079, 0.65793)
+bones/17/rotation = Quaternion(0.299133, 0.497519, -0.0811354, 0.810192)
+bones/18/position = Vector3(-0.0149333, 0.127764, -0.100301)
+bones/18/rotation = Quaternion(0.00718806, 0.00631282, 0.711895, 0.702221)
+bones/21/rotation = Quaternion(0.0694309, -0.089939, 0.183794, 0.976376)
+bones/24/position = Vector3(0.197882, 0.0839213, 0.0388521)
+bones/24/rotation = Quaternion(0.926462, 0.0947752, -0.0306212, 0.362971)
+bones/25/rotation = Quaternion(0.65693, 5.15567e-08, -4.62247e-07, 0.753951)
+bones/26/rotation = Quaternion(-0.580471, 0.0641789, 0.0256764, 0.811342)
+bones/27/rotation = Quaternion(-4.35292e-05, 0.974443, -0.224636, -0.00010228)
+bones/28/position = Vector3(-0.0303431, 0.12307, 0.0471114)
+bones/28/rotation = Quaternion(0.940616, 0.134956, 0.146318, 0.27499)
+bones/29/rotation = Quaternion(0.803549, -3.9546e-08, 5.43515e-07, 0.595239)
+bones/30/rotation = Quaternion(-0.732289, -0.0324664, 0.170483, 0.65851)
+bones/31/rotation = Quaternion(2.7286e-05, 0.974443, -0.224636, 6.42628e-05)
+bones/32/position = Vector3(0.620352, 0.0615412, 0.198078)
+bones/32/rotation = Quaternion(0.48207, -0.461014, -0.520109, 0.533443)
+bones/33/position = Vector3(-0.0532067, 0.0969282, 0.313696)
+bones/33/rotation = Quaternion(-0.569791, 0.558247, -0.415251, 0.437339)
+bones/34/position = Vector3(0.000796688, -0.118699, -0.00737682)
+bones/34/rotation = Quaternion(0.00180529, 0.514437, 0.85752, 0.00342713)
+bones/35/position = Vector3(-3.69764e-09, 0.213436, -3.77363e-08)
+bones/35/rotation = Quaternion(-1.04892e-07, 0.391084, 0.920355, -2.98903e-08)
+bones/37/rotation = Quaternion(1, -2.32833e-10, 1.93776e-07, 7.66158e-09)
+bones/39/position = Vector3(0.551346, 0.402917, 0.268746)
+bones/39/rotation = Quaternion(0.513523, -0.512587, -0.477181, 0.495829)
+bones/40/position = Vector3(-0.126925, 0.286117, 0.264261)
+bones/40/rotation = Quaternion(-0.536578, 0.518072, -0.469762, 0.472239)
+bones/41/position = Vector3(0.00406592, -0.0298219, 0.0136408)
+bones/41/rotation = Quaternion(-0.00202871, 0.51454, 0.857441, 0.00626796)
+bones/42/position = Vector3(3.75294e-09, 0.213436, -1.11109e-08)
+bones/42/rotation = Quaternion(-1.03671e-07, 0.391084, 0.920355, -3.03832e-08)
+bones/43/position = Vector3(-6.31127e-09, 0.16565, -1.43404e-08)
+bones/44/rotation = Quaternion(1, 9.31322e-10, 1.93776e-07, 7.53789e-09)
+bones/46/position = Vector3(0.0506744, -0.350544, -0.254746)
+bones/46/rotation = Quaternion(-0.508903, 0.490936, -0.490936, 0.508903)
+bones/47/position = Vector3(0.494155, 0.189081, -0.458336)
+bones/47/rotation = Quaternion(0.477241, 0.541395, -0.528929, 0.446505)
+bones/48/position = Vector3(0.381219, 1.62427, -0.088899)
+bones/48/rotation = Quaternion(-0.466496, 0.447102, -0.531396, 0.547814)
+bones/49/position = Vector3(0.298858, 0.432328, -0.270623)
+bones/49/rotation = Quaternion(0.582409, 0.325456, 0.671137, -0.323192)
+
+[node name="1H_Sword_Offhand" parent="Rig/Skeleton3D" index="0"]
+transform = Transform3D(-0.95278, 0.303561, -0.00773996, 0.0243341, 0.0509192, -0.998406, -0.302684, -0.95145, -0.0559018, 0.662555, 0.240781, -0.513626)
+visible = false
+
+[node name="Badge_Shield" parent="Rig/Skeleton3D" index="1"]
+transform = Transform3D(-0.952779, 0.303564, -0.00774053, 0.0243349, 0.0509194, -0.998406, -0.302686, -0.951449, -0.0559022, 0.661349, 0.0851441, -0.52234)
+visible = false
+
+[node name="Rectangle_Shield" parent="Rig/Skeleton3D" index="2"]
+transform = Transform3D(-0.952779, 0.303564, -0.00774053, 0.0243349, 0.0509194, -0.998406, -0.302686, -0.951449, -0.0559022, 0.661349, 0.0851441, -0.52234)
+visible = false
+
+[node name="Round_Shield" parent="Rig/Skeleton3D" index="3"]
+transform = Transform3D(-0.952779, 0.303564, -0.00774053, 0.0243349, 0.0509194, -0.998406, -0.302686, -0.951449, -0.0559022, 0.661349, 0.0851441, -0.52234)
+visible = false
+
+[node name="Spike_Shield" parent="Rig/Skeleton3D" index="4"]
+transform = Transform3D(-0.952779, 0.303564, -0.00774053, 0.0243349, 0.0509194, -0.998406, -0.302686, -0.951449, -0.0559022, 0.661349, 0.0851441, -0.52234)
+visible = false
+
+[node name="1H_Sword" parent="Rig/Skeleton3D" index="5"]
+transform = Transform3D(-0.815154, 0.112434, -0.568226, 0.577335, 0.0781517, -0.812758, -0.0469738, -0.990581, -0.128618, 0.37409, 0.210987, -0.310531)
+visible = false
+
+[node name="2H_Sword" parent="Rig/Skeleton3D" index="6"]
+transform = Transform3D(-0.815154, 0.112434, -0.568226, 0.577335, 0.0781517, -0.812758, -0.0469738, -0.990581, -0.128618, 0.37409, 0.210987, -0.310531)
+visible = false
+
+[node name="Knight_Helmet" parent="Rig/Skeleton3D" index="7"]
+transform = Transform3D(0.284281, 0.410917, 0.866217, -0.932558, 0.328224, 0.150349, -0.222532, -0.850539, 0.476512, 0.0681868, 0.302283, -0.678159)
+
+[node name="Knight_Cape" parent="Rig/Skeleton3D" index="8"]
+transform = Transform3D(-0.0221617, 0.331592, 0.943163, -0.998935, -0.0455231, -0.00746742, 0.0404595, -0.942324, 0.332248, 0.0702122, 0.311827, -0.675815)
+
+[node name="AnimationPlayer" parent="." index="1"]
+playback_default_blend_time = 0.2

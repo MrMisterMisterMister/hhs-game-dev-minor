@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://cttlg45egj3mi"]
+
+[ext_resource type="Script" uid="uid://dro8ond76hyw3" path="res://player.gd" id="1_abrql"]
+[ext_resource type="PackedScene" uid="uid://dr0rjbdugv4cu" path="res://entities/player/art/knight.tscn" id="2_sglur"]
+[ext_resource type="Script" uid="uid://cmsy3o4cisyhh" path="res://utilities/state_machine/state_machine.gd" id="3_26q78"]
+[ext_resource type="Script" uid="uid://k2ihd847edlc" path="res://entities/player/move_states/idle.gd" id="4_bectd"]
+[ext_resource type="Script" uid="uid://b60ckrefrk2g1" path="res://entities/player/move_states/walk.gd" id="5_wvtmh"]
+[ext_resource type="Script" uid="uid://d12600iwgjo51" path="res://entities/player/move_states/run.gd" id="6_7thud"]
+[ext_resource type="Script" uid="uid://barb8wphrsbna" path="res://entities/player/move_states/jump.gd" id="7_a1qjk"]
+[ext_resource type="Script" uid="uid://fqemclmq414y" path="res://entities/player/move_states/rest.gd" id="8_j3ovn"]
+[ext_resource type="Script" uid="uid://7hcl2rq16u3i" path="res://entities/player/move_component.gd" id="9_bectd"]
+[ext_resource type="Script" uid="uid://camg6omxk6e7g" path="res://entities/player/move_states/rise.gd" id="9_wvtmh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bls4j"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_abrql")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bls4j")
+
+[node name="Visual" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Knight" parent="Visual" instance=ExtResource("2_sglur")]
+unique_name_in_owner = true
+
+[node name="MoveStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_26q78")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "rest_state")]
+script = ExtResource("4_bectd")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+rest_state = NodePath("../Rest")
+animation_name = "Idle"
+
+[node name="Walk" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state")]
+script = ExtResource("5_wvtmh")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+animation_name = "Walking_C"
+
+[node name="Run" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
+script = ExtResource("6_7thud")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
+animation_name = "Running_A"
+
+[node name="Jump" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "run_state")]
+script = ExtResource("7_a1qjk")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
+animation_name = "Jump_Idle"
+
+[node name="Rest" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("rise_state")]
+script = ExtResource("8_j3ovn")
+rise_state = NodePath("../Rise")
+animation_name = "Lie_Down"
+
+[node name="Rise" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("9_wvtmh")
+idle_state = NodePath("../Idle")
+animation_name = "Lie_StandUp"
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("parent", "visual")]
+script = ExtResource("9_bectd")
+parent = NodePath("..")
+visual = NodePath("../Visual")
