@@ -7,6 +7,7 @@ A simple 3D stacking game based on physics, impemented in godot v4.4.
 - Randomized Stackables: A new random stackable appears one second after the previous one is dropped.
 - Game Over: The game ends if a stackable falls outside the box.
 - Restart Option: Click the restart button to start over.
+- Exit Option: Click the exit button to start over.
 - Dynamic Camera: The camera adjusts automatically based on the stack height.
 
 ## Credits
