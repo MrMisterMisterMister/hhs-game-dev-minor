@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://rsy1umtrji0o"]
+
+[resource]
+HeaderExtraLarge/base_type = &"Label"
+HeaderExtraLarge/constants/outline_size = 3
+HeaderExtraLarge/font_sizes/font_size = 75
+HeaderLarge/constants/outline_size = 2
+HeaderMedium/constants/outline_size = 2
+Label/constants/outline_size = 1

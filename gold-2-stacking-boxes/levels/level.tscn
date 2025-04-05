@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://p7wxx6nd4og0"]
+
+[ext_resource type="PackedScene" uid="uid://jmsxfsnhh7wu" path="res://resources/bowl.tscn" id="1_cwqvt"]
+[ext_resource type="Script" uid="uid://p066sf0ki54c" path="res://levels/level.gd" id="1_safpt"]
+[ext_resource type="PackedScene" uid="uid://dpfjj3nu0sp08" path="res://resources/table.tscn" id="2_5mrsh"]
+[ext_resource type="PackedScene" uid="uid://ch85tkwxds10q" path="res://controllers/camera_controller.tscn" id="4_5mrsh"]
+[ext_resource type="PackedScene" uid="uid://dnbdnw61lca2w" path="res://controllers/spawner.tscn" id="4_safpt"]
+[ext_resource type="PackedScene" uid="uid://bxr7s268cp67w" path="res://ui/hud.tscn" id="6_gjl0y"]
+[ext_resource type="Script" uid="uid://bloc3kebnbg2t" path="res://ui/hud.gd" id="7_vnv7o"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gjl0y"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_vnv7o"]
+sky_material = SubResource("ProceduralSkyMaterial_gjl0y")
+
+[sub_resource type="Environment" id="Environment_d5x7l"]
+background_mode = 2
+sky = SubResource("Sky_vnv7o")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vnv7o"]
+size = Vector3(5, 0.1, 5)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_safpt")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_d5x7l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Bowl" parent="." instance=ExtResource("1_cwqvt")]
+transform = Transform3D(5, 0, 0, 0, 3, 0, 0, 0, 5, 0, 0.165, 0)
+
+[node name="Table" parent="." instance=ExtResource("2_5mrsh")]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, -1.55, 0)
+
+[node name="Deadzone" type="Area3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60451, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Table/Deadzone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_vnv7o")
+debug_color = Color(1, 1, 1, 0.419608)
+
+[node name="Spawner" parent="." instance=ExtResource("4_safpt")]
+path_to_stackables = "res://stackables/Food"
+
+[node name="CameraController" parent="." instance=ExtResource("4_5mrsh")]
+
+[node name="Stackables" type="Node" parent="." groups=["stackables_counter"]]
+
+[node name="HUD" parent="." instance=ExtResource("6_gjl0y")]
+script = ExtResource("7_vnv7o")
+
+[connection signal="body_entered" from="Table/Deadzone" to="." method="_on_deadzone_body_entered"]

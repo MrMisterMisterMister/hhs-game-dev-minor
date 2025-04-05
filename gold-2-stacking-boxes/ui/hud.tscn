@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxr7s268cp67w"]
+
+[sub_resource type="GDScript" id="GDScript_pv4sj"]
+script/source = "extends Control
+
+func _on_level_hud_updated() -> void:
+	pass # Replace with function body.
+"
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_pv4sj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HeightLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Height"
+horizontal_alignment = 1
+
+[node name="HeightNumberLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Height"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="TotalStackablesLabel" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Total Stackables"
+horizontal_alignment = 1
+
+[node name="TotalStackablesCountLabel" type="Label" parent="MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Total Stackables"
+horizontal_alignment = 1
