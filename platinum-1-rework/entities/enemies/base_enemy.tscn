@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpan1jpjd58xe"]
+
+[ext_resource type="Script" uid="uid://bco78pafd3vmo" path="res://entities/enemies/base_enemy.gd" id="1_20vb3"]
+
+[node name="BaseEnemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_20vb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="Visual" type="Node3D" parent="."]

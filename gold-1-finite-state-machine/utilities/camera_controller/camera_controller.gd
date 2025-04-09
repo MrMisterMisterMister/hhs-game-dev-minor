@@ -77,6 +77,7 @@ func _input(event):
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+
 func _process(delta: float) -> void:
 	# Calculate actual distance between camera and entity
 	var camera_position = camera_reference.global_position

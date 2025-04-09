@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3boh3282tehj"]
+
+[ext_resource type="Script" uid="uid://cqkt2tgx60ka2" path="res://utilities/camera_controller/camera_controller.gd" id="1_1qfy8"]
+[ext_resource type="Script" uid="uid://i51dba2u5a5a" path="res://utilities/camera_controller/remote_transform_3d.gd" id="2_v4udy"]
+
+[node name="CameraController" type="Node3D"]
+script = ExtResource("1_1qfy8")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+collision_mask = 5
+
+[node name="CameraPosition" type="Node3D" parent="SpringArm3D"]
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="." node_paths=PackedStringArray("camera_position")]
+remote_path = NodePath("../SpringArm3D/CameraPosition")
+script = ExtResource("2_v4udy")
+camera_position = NodePath("../SpringArm3D/CameraPosition")
