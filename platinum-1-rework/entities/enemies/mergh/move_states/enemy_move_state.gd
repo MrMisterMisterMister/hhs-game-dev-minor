@@ -40,16 +40,22 @@ func get_distance_to_target() -> float:
 	return parent.global_position.distance_to(target.global_position)
 
 
-func move_toward_target(speed: float) -> void:
+func move_toward_target(speed: float, delta: float) -> void:
 	var dir: Vector3 = get_direction_to_player()
-	var target_angle: float = Vector2(dir.x, dir.z).angle()
 	
-	parent.rotation.y = -target_angle + PI/2
+	look_toward_target(delta)
 	parent.velocity = Vector3(dir.x, 0, dir.z) * speed
 	
 	parent.move_and_slide()
 
 
-func can_attack() -> bool:
-	combat_component.is_attacking = get_distance_to_target() < 4.5
-	return combat_component.is_attacking
+func look_toward_target(delta: float) -> void:
+	var dir: Vector3 = get_direction_to_player()
+	var target_angle: float = atan2(dir.x, dir.z)
+	
+	parent.rotation.y = lerp(parent.rotation.y, target_angle, 2.0 * delta)
+
+
+func in_attack_radius() -> bool:
+	combat_component.in_attack_radius = get_distance_to_target() < 4.5
+	return combat_component.in_attack_radius

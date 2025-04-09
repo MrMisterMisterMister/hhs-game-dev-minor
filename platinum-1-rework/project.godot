@@ -99,3 +99,4 @@ toggle_mouse_mode={
 3d_physics/layer_3="Enemies"
 3d_physics/layer_4="Projectiles"
 3d_physics/layer_5="Items"
+3d_physics/layer_6="Object"

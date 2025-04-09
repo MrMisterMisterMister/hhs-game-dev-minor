@@ -19,7 +19,7 @@ func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
 
 
 func process(_delta: float) -> EnemyMoveState:
-	if can_attack():
+	if in_attack_radius():
 		return idle_combat_state
 	
 	if get_distance_to_target() <= aggro_radius:

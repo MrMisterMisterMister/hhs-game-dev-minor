@@ -18,7 +18,7 @@ func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
 
 
 func process(_delta: float) -> EnemyMoveState:
-	if  can_attack():
+	if in_attack_radius():
 		return idle_combat_state
 	if get_distance_to_target() > deaggro_radius:
 		return idle_state
@@ -28,6 +28,6 @@ func process(_delta: float) -> EnemyMoveState:
 func physics_process(delta: float) -> EnemyMoveState:
 	parent.velocity.y += parent.get_gravity().y * delta
 	
-	move_toward_target(walk_speed)
+	move_toward_target(walk_speed, delta)
 	
 	return null

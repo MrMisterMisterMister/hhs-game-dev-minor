@@ -1,7 +1,7 @@
 extends AttackState
 
 @export_category("Transition States")
-@export var one_hand_chop: AttackState
+@export var chop_state: AttackState
 
 
 func enter(prev_state: AttackState) -> void:
@@ -10,6 +10,6 @@ func enter(prev_state: AttackState) -> void:
 
 func input(_event: InputEvent) -> AttackState:
 	if Input.is_action_just_pressed("attack"):
-		return one_hand_chop
+		return chop_state
 	
 	return null

@@ -16,12 +16,15 @@ func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
 
 
 func process(_delta: float) -> EnemyMoveState:
-	if not can_attack():
+	if not in_attack_radius():
 		return idle_state
 	
 	return null
 
+
 func physics_process(delta: float) -> EnemyMoveState:
 	parent.velocity.y += parent.get_gravity().y * delta
+	
+	look_toward_target(delta)
 	
 	return null

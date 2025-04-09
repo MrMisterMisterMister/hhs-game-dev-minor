@@ -19,7 +19,7 @@ func init(parent: CharacterBody3D, animation_player: AnimationPlayer) -> void:
 
 
 ## Change to the new state by first calling any exit logic on the current state.
-func change_state(new_state: State) -> void:
+func change_state(new_state: State, info: Dictionary = {}) -> void:
 	if current_state:
 		current_state.exit()
 	
@@ -27,11 +27,7 @@ func change_state(new_state: State) -> void:
 	current_state = new_state
 	current_state.enter(previous_state)
 	
-	SignalManager.state_changed.emit(current_state, previous_state)
-	
-	if previous_state:
-		print("state machine: ", self.name, " │ previous state: ", previous_state.name)
-		print("state machine: ", self.name, " │ current state: ", current_state.name)
+	SignalManager.player_state_changed.emit(current_state, previous_state)
 
 
 # Pass through function for the Player to call,

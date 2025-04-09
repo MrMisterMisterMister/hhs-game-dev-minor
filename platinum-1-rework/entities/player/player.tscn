@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cttlg45egj3mi"]
+[gd_scene load_steps=21 format=3 uid="uid://cttlg45egj3mi"]
 
 [ext_resource type="Script" uid="uid://dro8ond76hyw3" path="res://entities/player/player.gd" id="1_abrql"]
 [ext_resource type="PackedScene" uid="uid://dr0rjbdugv4cu" path="res://entities/player/art/knight.tscn" id="2_sglur"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://g35dh3ttyjw8" path="res://entities/player/move_states/fall.gd" id="11_b2kln"]
 [ext_resource type="Script" uid="uid://b56uapasnndjn" path="res://entities/player/attack_states/standby.gd" id="11_j3ovn"]
 [ext_resource type="Script" uid="uid://ct2yt25f5pj6a" path="res://entities/player/attack_states/one_hand_chop.gd" id="12_j3ovn"]
+[ext_resource type="Script" uid="uid://cxnlcjcjsfb7a" path="res://entities/player/move_states/hurt.gd" id="12_we0b7"]
 [ext_resource type="Script" uid="uid://dfql1a52jv6h4" path="res://entities/player/attack_states/one_hand_slice_vertical.gd" id="13_3wlsy"]
 [ext_resource type="Script" uid="uid://dxsayeprwms7i" path="res://entities/player/components/combat_component.gd" id="14_afbqv"]
 [ext_resource type="Script" uid="uid://g3at3uqlpaxw" path="res://entities/player/attack_states/one_hand_stab.gd" id="15_b2kln"]
@@ -103,33 +104,37 @@ jump_state = NodePath("../Jump")
 wait_time = 0.3
 one_shot = true
 
+[node name="Hurt" type="Node" parent="MoveStateMachine"]
+script = ExtResource("12_we0b7")
+
+[node name="ImmobileTimer" type="Timer" parent="MoveStateMachine/Hurt"]
+one_shot = true
+
 [node name="AttackStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("10_7thud")
 initial_state = NodePath("Standby")
 
-[node name="Standby" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("one_hand_chop")]
+[node name="Standby" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("chop_state")]
 script = ExtResource("11_j3ovn")
-one_hand_chop = NodePath("../OneHandChop")
+chop_state = NodePath("../Chop")
 
-[node name="OneHandChop" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state", "one_hand_slice_vertical_state")]
+[node name="Chop" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state", "slice_state")]
 script = ExtResource("12_j3ovn")
 standby_state = NodePath("../Standby")
-one_hand_slice_vertical_state = NodePath("../OneHandSlice")
+slice_state = NodePath("../Slice")
 
-[node name="AttackTimer" type="Timer" parent="AttackStateMachine/OneHandChop"]
-wait_time = 2.0
+[node name="AttackTimer" type="Timer" parent="AttackStateMachine/Chop"]
 one_shot = true
 
-[node name="OneHandSlice" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state", "one_hand_stab_state")]
+[node name="Slice" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state", "stab_state")]
 script = ExtResource("13_3wlsy")
 standby_state = NodePath("../Standby")
-one_hand_stab_state = NodePath("../OneHandStab")
+stab_state = NodePath("../Stab")
 
-[node name="AttackTimer" type="Timer" parent="AttackStateMachine/OneHandSlice"]
-wait_time = 2.0
+[node name="AttackTimer" type="Timer" parent="AttackStateMachine/Slice"]
 one_shot = true
 
-[node name="OneHandStab" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state")]
+[node name="Stab" type="Node" parent="AttackStateMachine" node_paths=PackedStringArray("standby_state")]
 script = ExtResource("15_b2kln")
 standby_state = NodePath("../Standby")
 
@@ -146,5 +151,5 @@ script = ExtResource("14_afbqv")
 [connection signal="timeout" from="MoveStateMachine/Dash/DashDuration" to="MoveStateMachine/Dash" method="_on_dash_duration_timeout"]
 [connection signal="timeout" from="MoveStateMachine/Dash/DashCooldown" to="MoveStateMachine/Dash" method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="MoveStateMachine/Fall/CoyoteTimer" to="MoveStateMachine/Fall" method="_on_coyote_timer_timeout"]
-[connection signal="timeout" from="AttackStateMachine/OneHandChop/AttackTimer" to="AttackStateMachine/OneHandChop" method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="AttackStateMachine/OneHandSlice/AttackTimer" to="AttackStateMachine/OneHandSlice" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackStateMachine/Chop/AttackTimer" to="AttackStateMachine/Chop" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackStateMachine/Slice/AttackTimer" to="AttackStateMachine/Slice" method="_on_attack_timer_timeout"]

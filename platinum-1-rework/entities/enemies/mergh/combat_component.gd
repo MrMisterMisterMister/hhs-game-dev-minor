@@ -1,4 +1,4 @@
 extends Node
 
-var is_attacking: bool = false
+var in_attack_radius: bool = false
 var spin_attack: bool = false
