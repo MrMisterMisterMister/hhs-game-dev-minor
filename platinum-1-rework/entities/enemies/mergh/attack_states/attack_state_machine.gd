@@ -26,9 +26,9 @@ func change_state(new_state: EnemyAttackState) -> void:
 	current_state = new_state
 	current_state.enter(previous_state)
 	
-	#if previous_state:
-		#print("enemy state machine: ", self.name, " │ previous state: ", previous_state.name)
-		#print("enemy state machine: ", self.name, " │ current state: ", current_state.name)
+	if previous_state:
+		print("enemy state machine: ", self.name, " │ previous state: ", previous_state.name)
+		print("enemy state machine: ", self.name, " │ current state: ", current_state.name)
 
 
 func physics_process(delta: float) -> void:
