@@ -23,7 +23,13 @@ func enter(prev_state: MoveState) -> MoveState:
 		has_coyote_jump = false  # Prevent infinite jumps
 	
 	animation_tree.get("parameters/MoveStateMachine/playback").travel(self.name)
+	
+	return null
 
+
+func input(_event: InputEvent) -> MoveState:
+	if Input.is_action_just_pressed("dash"):
+		return dash_state
 	
 	return null
 
@@ -45,7 +51,7 @@ func physics_process(delta: float) -> MoveState:
 	
 	parent.move_and_slide()
 
-	# **State Transitions**
+	# State Transitions
 	if parent.is_on_floor():
 		if movement == Vector3.ZERO:
 			return idle_state  # Player landed but not moving

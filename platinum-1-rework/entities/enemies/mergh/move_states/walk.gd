@@ -1,11 +1,33 @@
-extends Node
+extends EnemyMoveState
+
+@export_category("Transition States")
+@export var idle_state: EnemyMoveState
+@export var idle_combat_state: EnemyMoveState
+
+var walk_speed: float = 2.5
+var deaggro_radius: float = 30.0
+var action_radius: float = 3.0
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
+	super(prev_state)
+	
+	animation_tree.get("parameters/MoveStateMachine/playback").travel(self.name)
+	
+	return null
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func process(_delta: float) -> EnemyMoveState:
+	if  can_attack():
+		return idle_combat_state
+	if get_distance_to_target() > deaggro_radius:
+		return idle_state
+	
+	return null
+
+func physics_process(delta: float) -> EnemyMoveState:
+	parent.velocity.y += parent.get_gravity().y * delta
+	
+	move_toward_target(walk_speed)
+	
+	return null

@@ -5,6 +5,7 @@ extends MoveState
 @export var walk_state: MoveState
 @export var run_state: MoveState
 @export var jump_state: MoveState
+
 @export_category("Movement")
 @export var dash_speed: float = 50
 
@@ -50,7 +51,6 @@ func physics_process(delta: float) -> MoveState:
 		move_component.rotate_visual(delta)  # Re-enable rotation after dashing
 		# Always use the stored direction instead of recalculating
 		parent.velocity = dash_direction * dash_speed
-		print(parent.velocity)
 	else:
 		if parent.is_on_floor():
 			var movement = move_component.get_direction()

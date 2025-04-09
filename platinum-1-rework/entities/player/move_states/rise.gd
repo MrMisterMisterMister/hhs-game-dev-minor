@@ -1,10 +1,10 @@
-extends EnemyMoveState
+extends MoveState
 
 @export_category("Transition States")
-@export var idle_state: EnemyMoveState
+@export var idle_state: MoveState
 
 
-func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
+func enter(prev_state: MoveState) -> MoveState:
 	super(prev_state)
 	
 	parent.velocity.x = 0
@@ -15,14 +15,14 @@ func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
 	return null
 
 
-func process(_delta: float) -> EnemyMoveState:
+func process(_delta: float) -> MoveState:
 	#if not animation_player.is_playing():
 		#return idle_state
 
 	return null
 
 
-func physics_process(delta: float) -> EnemyMoveState:
+func physics_process(delta: float) -> MoveState:
 	parent.velocity.y += move_component.get_gravity(parent.velocity) * delta
 	
 	return null

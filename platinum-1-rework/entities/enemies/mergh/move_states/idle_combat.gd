@@ -1,10 +1,7 @@
 extends EnemyMoveState
 
 @export_category("Transition States")
-@export var idle_combat_state: EnemyMoveState
-@export var walk_state: EnemyMoveState
-
-var aggro_radius: float = 30.0
+@export var idle_state: EnemyMoveState
 
 
 func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
@@ -19,14 +16,10 @@ func enter(prev_state: EnemyMoveState) -> EnemyMoveState:
 
 
 func process(_delta: float) -> EnemyMoveState:
-	if can_attack():
-		return idle_combat_state
-	
-	if get_distance_to_target() <= aggro_radius:
-		return walk_state
+	if not can_attack():
+		return idle_state
 	
 	return null
-
 
 func physics_process(delta: float) -> EnemyMoveState:
 	parent.velocity.y += parent.get_gravity().y * delta

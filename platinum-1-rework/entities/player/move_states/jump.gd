@@ -4,6 +4,7 @@ extends MoveState
 @export var idle_state: MoveState
 @export var walk_state: MoveState
 @export var run_state: MoveState
+@export var dash_state: MoveState
 
 
 func enter(prev_state: MoveState) -> MoveState:
@@ -13,6 +14,12 @@ func enter(prev_state: MoveState) -> MoveState:
 	
 	animation_tree.get("parameters/MoveStateMachine/playback").travel(self.name)
 	
+	return null
+
+
+func input(_event: InputEvent) -> MoveState:
+	if Input.is_action_just_pressed("dash"):
+		return dash_state
 	
 	return null
 

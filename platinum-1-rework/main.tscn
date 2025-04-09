@@ -96,6 +96,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_kek77")
 [node name="Player" parent="Entities" instance=ExtResource("1_0xm2m")]
 
 [node name="Mergh" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("8_5vw27")]
+transform = Transform3D(0.996368, 0, 0.0851562, 0, 1, 0, -0.0851562, 0, 0.996368, 1.58911, 0, -9.52922)
 target = NodePath("../Player")
 
 [node name="Camera" type="Node3D" parent="."]

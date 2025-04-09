@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cobak6tahofco"]
+[gd_scene load_steps=34 format=3 uid="uid://cobak6tahofco"]
 
 [ext_resource type="PackedScene" uid="uid://cpan1jpjd58xe" path="res://entities/enemies/base_enemy.tscn" id="1_wdidw"]
 [ext_resource type="PackedScene" uid="uid://f65wgsdmfvw6" path="res://entities/enemies/mergh/art/undead_warrior.tscn" id="2_85tb2"]
@@ -9,19 +9,10 @@
 [ext_resource type="Script" uid="uid://duodkony7ca5n" path="res://entities/enemies/mergh/move_states/idle.gd" id="6_srd1l"]
 [ext_resource type="Script" uid="uid://pubgpy5a80na" path="res://entities/enemies/mergh/move_states/walk.gd" id="7_1rcmp"]
 [ext_resource type="Script" uid="uid://jw48adgqkb8j" path="res://entities/enemies/mergh/attack_states/attack_state_machine.gd" id="7_el4dp"]
-[ext_resource type="Script" uid="uid://ckhkwojdsa6ab" path="res://entities/enemies/mergh/attack_states/standby.gd" id="8_57d2u"]
-[ext_resource type="Script" uid="uid://cykyu78fjcy1d" path="res://entities/enemies/mergh/attack_states/jump_attack.gd" id="9_ec25m"]
-[ext_resource type="Script" uid="uid://jspicsmhfwl2" path="res://entities/enemies/mergh/combat_component.gd" id="12_vqsyn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tidag"]
 radius = 1.0
 height = 6.5
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_tyadj"]
-filter_enabled = true
-filters = ["Rig/Skeleton3D:IK-foot.l", "Rig/Skeleton3D:IK-foot.r", "Rig/Skeleton3D:IK-toe.l", "Rig/Skeleton3D:IK-toe.r", "Rig/Skeleton3D:chest", "Rig/Skeleton3D:control-foot-roll.l", "Rig/Skeleton3D:control-foot-roll.r", "Rig/Skeleton3D:control-heel-roll.l", "Rig/Skeleton3D:control-heel-roll.r", "Rig/Skeleton3D:control-toe-roll.l", "Rig/Skeleton3D:control-toe-roll.r", "Rig/Skeleton3D:elbowIK.l", "Rig/Skeleton3D:elbowIK.r", "Rig/Skeleton3D:foot.l", "Rig/Skeleton3D:foot.r", "Rig/Skeleton3D:hand.l", "Rig/Skeleton3D:hand.r", "Rig/Skeleton3D:handIK.l", "Rig/Skeleton3D:handIK.r", "Rig/Skeleton3D:handslot.l", "Rig/Skeleton3D:handslot.r", "Rig/Skeleton3D:head", "Rig/Skeleton3D:heelIK.l", "Rig/Skeleton3D:heelIK.r", "Rig/Skeleton3D:hips", "Rig/Skeleton3D:kneeIK.l", "Rig/Skeleton3D:kneeIK.r", "Rig/Skeleton3D:lowerarm.l", "Rig/Skeleton3D:lowerarm.r", "Rig/Skeleton3D:lowerleg.l", "Rig/Skeleton3D:lowerleg.r", "Rig/Skeleton3D:root", "Rig/Skeleton3D:spine", "Rig/Skeleton3D:toes.l", "Rig/Skeleton3D:toes.r", "Rig/Skeleton3D:upperarm.l", "Rig/Skeleton3D:upperarm.r", "Rig/Skeleton3D:upperleg.l", "Rig/Skeleton3D:upperleg.r", "Rig/Skeleton3D:wrist.l", "Rig/Skeleton3D:wrist.r"]
-fadein_time = 0.3
-fadeout_time = 0.5
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rcmp"]
 animation = &"1H_Melee_Attack_Jump_Chop"
@@ -34,10 +25,10 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f6sq8"]
 states/End/position = Vector2(597, 86)
-states/JumpAttack/node = SubResource("AnimationNodeAnimation_1rcmp")
-states/JumpAttack/position = Vector2(390, 86)
+states/Jump_Attack/node = SubResource("AnimationNodeAnimation_1rcmp")
+states/Jump_Attack/position = Vector2(416, 86)
 states/Start/position = Vector2(196, 86)
-transitions = ["Start", "JumpAttack", SubResource("AnimationNodeStateMachineTransition_vqsyn"), "JumpAttack", "End", SubResource("AnimationNodeStateMachineTransition_8htwc")]
+transitions = ["Start", "Jump_Attack", SubResource("AnimationNodeStateMachineTransition_vqsyn"), "Jump_Attack", "End", SubResource("AnimationNodeStateMachineTransition_8htwc")]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ilxjj"]
 animation = &"2H_Melee_Idle"
@@ -79,7 +70,6 @@ xfade_time = 0.3
 xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e751q"]
-xfade_time = 0.3
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s6aen"]
 xfade_time = 0.3
@@ -87,29 +77,35 @@ xfade_time = 0.3
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vqsyn"]
 states/Idle/node = SubResource("AnimationNodeAnimation_ilxjj")
 states/Idle/position = Vector2(384, 48)
-states/IdleCombat/node = SubResource("AnimationNodeAnimation_srd1l")
-states/IdleCombat/position = Vector2(239, 139)
+states/Idle_Combat/node = SubResource("AnimationNodeAnimation_srd1l")
+states/Idle_Combat/position = Vector2(239, 139)
 states/Run/node = SubResource("AnimationNodeAnimation_0rbj3")
 states/Run/position = Vector2(686, 62)
 states/Start/position = Vector2(206, 62)
 states/Walk/node = SubResource("AnimationNodeAnimation_godf8")
 states/Walk/position = Vector2(384, 170)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_el4dp"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_t4oyk"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_srd1l"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_1rcmp"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_rt6kl"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_57d2u"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_ec25m"), "IdleCombat", "Idle", SubResource("AnimationNodeStateMachineTransition_f6sq8"), "Idle", "IdleCombat", SubResource("AnimationNodeStateMachineTransition_tyadj"), "Walk", "IdleCombat", SubResource("AnimationNodeStateMachineTransition_e751q"), "IdleCombat", "Walk", SubResource("AnimationNodeStateMachineTransition_s6aen")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_el4dp"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_t4oyk"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_srd1l"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_1rcmp"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_rt6kl"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_57d2u"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_ec25m"), "Idle_Combat", "Idle", SubResource("AnimationNodeStateMachineTransition_f6sq8"), "Idle", "Idle_Combat", SubResource("AnimationNodeStateMachineTransition_tyadj"), "Walk", "Idle_Combat", SubResource("AnimationNodeStateMachineTransition_e751q"), "Idle_Combat", "Walk", SubResource("AnimationNodeStateMachineTransition_s6aen")]
 graph_offset = Vector2(-211, 39)
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_tyadj"]
+filter_enabled = true
+filters = ["Rig/Skeleton3D:IK-foot.l", "Rig/Skeleton3D:IK-foot.r", "Rig/Skeleton3D:IK-toe.l", "Rig/Skeleton3D:IK-toe.r", "Rig/Skeleton3D:chest", "Rig/Skeleton3D:control-foot-roll.l", "Rig/Skeleton3D:control-foot-roll.r", "Rig/Skeleton3D:control-heel-roll.l", "Rig/Skeleton3D:control-heel-roll.r", "Rig/Skeleton3D:control-toe-roll.l", "Rig/Skeleton3D:control-toe-roll.r", "Rig/Skeleton3D:elbowIK.l", "Rig/Skeleton3D:elbowIK.r", "Rig/Skeleton3D:foot.l", "Rig/Skeleton3D:foot.r", "Rig/Skeleton3D:hand.l", "Rig/Skeleton3D:hand.r", "Rig/Skeleton3D:handIK.l", "Rig/Skeleton3D:handIK.r", "Rig/Skeleton3D:handslot.l", "Rig/Skeleton3D:handslot.r", "Rig/Skeleton3D:head", "Rig/Skeleton3D:heelIK.l", "Rig/Skeleton3D:heelIK.r", "Rig/Skeleton3D:hips", "Rig/Skeleton3D:kneeIK.l", "Rig/Skeleton3D:kneeIK.r", "Rig/Skeleton3D:lowerarm.l", "Rig/Skeleton3D:lowerarm.r", "Rig/Skeleton3D:lowerleg.l", "Rig/Skeleton3D:lowerleg.r", "Rig/Skeleton3D:root", "Rig/Skeleton3D:spine", "Rig/Skeleton3D:toes.l", "Rig/Skeleton3D:toes.r", "Rig/Skeleton3D:upperarm.l", "Rig/Skeleton3D:upperarm.r", "Rig/Skeleton3D:upperleg.l", "Rig/Skeleton3D:upperleg.r", "Rig/Skeleton3D:wrist.l", "Rig/Skeleton3D:wrist.r"]
+fadein_time = 0.3
+fadeout_time = 0.5
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_e751q"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ilxjj"]
-graph_offset = Vector2(-807.512, 21.089)
-nodes/AttackOneShot/node = SubResource("AnimationNodeOneShot_tyadj")
-nodes/AttackOneShot/position = Vector2(-120, 60)
+graph_offset = Vector2(-734.714, -27.0468)
 nodes/AttackStateMachine/node = SubResource("AnimationNodeStateMachine_f6sq8")
 nodes/AttackStateMachine/position = Vector2(-420, 220)
 nodes/MoveStateMachine/node = SubResource("AnimationNodeStateMachine_vqsyn")
 nodes/MoveStateMachine/position = Vector2(-420, -20)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_tyadj")
+nodes/OneShot/position = Vector2(-120, 60)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_e751q")
 nodes/TimeScale/position = Vector2(60, 80)
-node_connections = [&"AttackOneShot", 0, &"MoveStateMachine", &"AttackOneShot", 1, &"AttackStateMachine", &"TimeScale", 0, &"AttackOneShot", &"output", 0, &"TimeScale"]
+node_connections = [&"OneShot", 0, &"MoveStateMachine", &"OneShot", 1, &"AttackStateMachine", &"TimeScale", 0, &"OneShot", &"output", 0, &"TimeScale"]
 
 [node name="Mergh" instance=ExtResource("1_wdidw")]
 script = ExtResource("2_ilxjj")
@@ -132,16 +128,10 @@ script = ExtResource("7_1rcmp")
 idle_state = NodePath("../Idle")
 idle_combat_state = NodePath("../IdleCombat")
 
-[node name="AttackStateMachine" type="Node" parent="." index="1" node_paths=PackedStringArray("initial_state")]
+[node name="AttackStateMachine" type="Node" parent="." index="1"]
 script = ExtResource("7_el4dp")
-initial_state = NodePath("Standby")
 
-[node name="Standby" type="Node" parent="AttackStateMachine" index="0" node_paths=PackedStringArray("jump_attack_state")]
-script = ExtResource("8_57d2u")
-jump_attack_state = NodePath("../JumpAttack")
-
-[node name="JumpAttack" type="Node" parent="AttackStateMachine" index="1"]
-script = ExtResource("9_ec25m")
+[node name="Standby" type="Node" parent="AttackStateMachine" index="0"]
 
 [node name="CollisionShape3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.25, 0)
@@ -151,9 +141,9 @@ shape = SubResource("CapsuleShape3D_tidag")
 root_node = NodePath("../Visual/UndeadWarrior")
 tree_root = SubResource("AnimationNodeBlendTree_ilxjj")
 anim_player = NodePath("../Visual/UndeadWarrior/AnimationPlayer")
-parameters/AttackOneShot/active = true
-parameters/AttackOneShot/internal_active = true
-parameters/AttackOneShot/request = 0
+parameters/OneShot/active = true
+parameters/OneShot/internal_active = true
+parameters/OneShot/request = 0
 parameters/TimeScale/scale = 0.5
 
 [node name="UndeadWarrior" parent="Visual" index="0" instance=ExtResource("2_85tb2")]
@@ -255,8 +245,5 @@ bone_name = "handslot.r"
 bone_idx = 13
 
 [node name="Skeleton_Axe" parent="Visual/UndeadWarrior/Rig/Skeleton3D/Skeleton_Warrior_Axe" index="0" instance=ExtResource("3_tidag")]
-
-[node name="CombatComponent" type="Node" parent="." index="5"]
-script = ExtResource("12_vqsyn")
 
 [editable path="Visual/UndeadWarrior"]
