@@ -6,6 +6,8 @@ extends AttackState
 
 var will_transition: bool = false
 
+@onready var animation_player: AnimationPlayer = %Knight/AnimationPlayer
+
 
 func enter(prev_state: AttackState) -> void:
 	super(prev_state)
@@ -27,6 +29,10 @@ func input(_event: InputEvent) -> AttackState:
 
 
 func process(_delta: float) -> AttackState:
+	if combat_component.is_hurt:
+		animation_tree.set("parameters/AttackOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+		return standby_state
+	
 	if not combat_component.is_attacking and not will_transition:
 		return standby_state
 	

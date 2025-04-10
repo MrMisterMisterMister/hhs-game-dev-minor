@@ -1,0 +1,169 @@
+[gd_scene load_steps=2 format=3 uid="uid://e0apbka5i4ja"]
+
+[ext_resource type="Script" uid="uid://frg0unlunyvx" path="res://ui/settings_menu/display_menu/display_menu.gd" id="1_clh1x"]
+
+[node name="DisplayMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_clh1x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DisplayItem" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/DisplayItem"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DisplayItem/MarginContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/DisplayItem/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Fullscreen"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/DisplayItem/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Fullscreen" type="Button" parent="VBoxContainer/DisplayItem/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+toggle_mode = true
+text = "On"
+
+[node name="DisplayItem2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/DisplayItem2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DisplayItem2/MarginContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/DisplayItem2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Borderless"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/DisplayItem2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Borderless" type="Button" parent="VBoxContainer/DisplayItem2/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+toggle_mode = true
+text = "On"
+
+[node name="DisplayItem3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/DisplayItem3"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DisplayItem3/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/DisplayItem3/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "V-Sync"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/DisplayItem3/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSync" type="Button" parent="VBoxContainer/DisplayItem3/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(156, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+toggle_mode = true
+text = "On"
+
+[node name="DisplayItem4" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/DisplayItem4"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/DisplayItem4/MarginContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/DisplayItem4/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "Resolution"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/DisplayItem4/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Resolution" type="OptionButton" parent="VBoxContainer/DisplayItem4/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+alignment = 1
+
+[connection signal="toggled" from="VBoxContainer/DisplayItem/MarginContainer/HBoxContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="VBoxContainer/DisplayItem2/MarginContainer/HBoxContainer/Borderless" to="." method="_on_borderless_toggled"]
+[connection signal="toggled" from="VBoxContainer/DisplayItem3/MarginContainer/HBoxContainer/VSync" to="." method="_on_v_sync_toggled"]
+[connection signal="item_selected" from="VBoxContainer/DisplayItem4/MarginContainer/HBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]

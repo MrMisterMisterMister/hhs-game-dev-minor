@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://cmg3ac7i7y6oc"]
+
+[ext_resource type="Script" uid="uid://de3ao8pkebltm" path="res://resources/stats/stats.gd" id="1_wld0n"]
+
+[resource]
+script = ExtResource("1_wld0n")
+max_health = 100.0
+max_stamina = 100.0
+health_regen = 5
+stamina_regen = 10
+metadata/_custom_type_script = "uid://de3ao8pkebltm"

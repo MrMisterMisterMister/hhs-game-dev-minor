@@ -6,38 +6,46 @@ extends MoveState
 @export var jump_state: MoveState
 @export var dash_state: MoveState
 @export var rest_state: MoveState
+@export var hurt_state: MoveState
 
 
-func enter(prev_state: MoveState) -> MoveState:
-	super(prev_state)
+func enter(prev_state: MoveState, _info: Dictionary = {}) -> void:
+	super(prev_state, _info)
 	
 	parent.velocity.x = 0
 	parent.velocity.z = 0
 	
 	animation_tree.get("parameters/MoveStateMachine/playback").travel(self.name)
-	
-	return null
 
 
-func input(_event: InputEvent) -> MoveState:
+func input(_event: InputEvent) -> void:
 	if parent.is_on_floor():
 		if move_component.get_jump_velocity() != 0:
-			return jump_state
+			SignalManager.player_move_state_changed.emit(jump_state)
+			return
 		if move_component.get_direction() != Vector3.ZERO:
-			return walk_state
+			SignalManager.player_move_state_changed.emit(walk_state)
+			return
 		if Input.is_action_pressed("run"):
-			return run_state
+			SignalManager.player_move_state_changed.emit(run_state)
+			return
 		if Input.is_action_pressed("rest"):
-			return rest_state
+			SignalManager.player_move_state_changed.emit(rest_state)
+			return
 		if Input.is_action_just_pressed("dash"):
-			return dash_state
+			SignalManager.player_move_state_changed.emit(dash_state)
+			return
+
+
+func process(delta: float) -> void:
+	parent.stamina += 10 * delta
 	
-	return null
+	if combat_component.is_hurt:
+		SignalManager.player_move_state_changed.emit(hurt_state, combat_component.hurt_info)
+		return
 
 
-func physics_process(delta: float) -> MoveState:
+func physics_process(delta: float) -> void:
 	parent.velocity.y += move_component.get_gravity(parent.velocity) * delta
 	
 	parent.move_and_slide()
-	
-	return null

@@ -6,6 +6,7 @@ extends AttackState
 
 func enter(prev_state: AttackState) -> void:
 	super(prev_state)
+	
 
 
 func input(_event: InputEvent) -> AttackState:

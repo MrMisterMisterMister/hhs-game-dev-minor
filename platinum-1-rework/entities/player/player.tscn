@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cttlg45egj3mi"]
+[gd_scene load_steps=22 format=3 uid="uid://cttlg45egj3mi"]
 
 [ext_resource type="Script" uid="uid://dro8ond76hyw3" path="res://entities/player/player.gd" id="1_abrql"]
+[ext_resource type="Resource" uid="uid://cmg3ac7i7y6oc" path="res://resources/stats/player_stats.tres" id="2_mtric"]
 [ext_resource type="PackedScene" uid="uid://dr0rjbdugv4cu" path="res://entities/player/art/knight.tscn" id="2_sglur"]
 [ext_resource type="Script" uid="uid://d0macourwlpa5" path="res://entities/player/move_states/move_state_machine.gd" id="3_wvtmh"]
 [ext_resource type="Script" uid="uid://k2ihd847edlc" path="res://entities/player/move_states/idle.gd" id="4_bectd"]
@@ -26,6 +27,7 @@
 collision_layer = 2
 collision_mask = 61
 script = ExtResource("1_abrql")
+stats = ExtResource("2_mtric")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -41,34 +43,38 @@ unique_name_in_owner = true
 script = ExtResource("3_wvtmh")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "dash_state", "rest_state")]
+[node name="Idle" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "dash_state", "rest_state", "hurt_state")]
 script = ExtResource("4_bectd")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 dash_state = NodePath("../Dash")
 rest_state = NodePath("../Rest")
+hurt_state = NodePath("../Hurt")
 
-[node name="Walk" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "dash_state")]
+[node name="Walk" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "dash_state", "hurt_state")]
 script = ExtResource("5_wvtmh")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 dash_state = NodePath("../Dash")
+hurt_state = NodePath("../Hurt")
 
-[node name="Run" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "dash_state")]
+[node name="Run" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "dash_state", "hurt_state")]
 script = ExtResource("6_7thud")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 dash_state = NodePath("../Dash")
+hurt_state = NodePath("../Hurt")
 
-[node name="Jump" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "dash_state")]
+[node name="Jump" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "dash_state", "fall_state")]
 script = ExtResource("7_a1qjk")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 dash_state = NodePath("../Dash")
+fall_state = NodePath("../Fall")
 
 [node name="Rest" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("rise_state")]
 script = ExtResource("8_j3ovn")
@@ -92,22 +98,26 @@ one_shot = true
 [node name="DashCooldown" type="Timer" parent="MoveStateMachine/Dash"]
 one_shot = true
 
-[node name="Fall" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "dash_state", "jump_state")]
+[node name="Fall" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "dash_state", "jump_state", "hurt_state")]
 script = ExtResource("11_b2kln")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 dash_state = NodePath("../Dash")
 jump_state = NodePath("../Jump")
+hurt_state = NodePath("../Hurt")
 
 [node name="CoyoteTimer" type="Timer" parent="MoveStateMachine/Fall"]
 wait_time = 0.3
 one_shot = true
 
-[node name="Hurt" type="Node" parent="MoveStateMachine"]
+[node name="Hurt" type="Node" parent="MoveStateMachine" node_paths=PackedStringArray("idle_state", "fall_state")]
 script = ExtResource("12_we0b7")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
 
 [node name="ImmobileTimer" type="Timer" parent="MoveStateMachine/Hurt"]
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

@@ -1,8 +1,9 @@
 extends Node
 
 # Player signals
-signal move_state_changed
-signal attack_state_changed
+signal player_move_state_changed
+signal player_attack_state_changed
 signal stamina_changed
-signal enemy_damagable
-signal player_damagable
+
+# Settings signals
+signal settings_loaded

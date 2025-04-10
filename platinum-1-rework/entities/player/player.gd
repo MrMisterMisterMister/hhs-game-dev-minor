@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+@export var stats: Stats
+
 @onready var move_state_machine: MoveStateMachine = $MoveStateMachine
 @onready var attack_state_machine: AttackStateMachine = $AttackStateMachine
 @onready var animation_tree: AnimationTree = %Knight/AnimationTree
@@ -14,9 +16,10 @@ var stamina: float = 100:
 
 
 func _ready() -> void:
-	print(animation_tree)
 	move_state_machine.init(self, animation_tree, move_component, combat_component)
 	attack_state_machine.init(self, animation_tree, move_component, combat_component)
+	
+	stats.init()
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 

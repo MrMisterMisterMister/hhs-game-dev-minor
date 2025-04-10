@@ -11,7 +11,10 @@ func enter(prev_state: AttackState) -> void:
 	animation_tree.set("parameters/AttackOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
-
 func process(_delta: float) -> AttackState:
+	if combat_component.is_hurt:
+		animation_tree.set("parameters/AttackOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+		return standby_state
+	
 	await animation_tree.animation_finished
 	return standby_state

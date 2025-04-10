@@ -1,13 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://ip5r63007c10"]
 
-[ext_resource type="PackedScene" uid="uid://cttlg45egj3mi" path="res://entities/player/player.tscn" id="1_0xm2m"]
-[ext_resource type="Texture2D" uid="uid://1a12ki6etn4b" path="res://assets/textures/Dark/texture_09.png" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://bsvc4pqsnyb34" path="res://assets/textures/Green/texture_09.png" id="2_7mycd"]
-[ext_resource type="PackedScene" uid="uid://d3boh3282tehj" path="res://utilities/camera_controller/camera_controller.tscn" id="2_h2yge"]
-[ext_resource type="Texture2D" uid="uid://cqieaxqei5e7t" path="res://assets/textures/Orange/texture_09.png" id="3_272bh"]
-[ext_resource type="Texture2D" uid="uid://djabntys6mtnu" path="res://assets/textures/Purple/texture_09.png" id="4_5vw27"]
-[ext_resource type="Script" uid="uid://g0d0g7ko8f2h" path="res://control.gd" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://cobak6tahofco" path="res://entities/enemies/mergh/mergh.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://cttlg45egj3mi" path="res://entities/player/player.tscn" id="1_xmdhc"]
+[ext_resource type="PackedScene" uid="uid://cobak6tahofco" path="res://entities/enemies/mergh/mergh.tscn" id="2_n5msl"]
+[ext_resource type="PackedScene" uid="uid://d3boh3282tehj" path="res://utilities/camera_controller/camera_controller.tscn" id="3_3dbuo"]
+[ext_resource type="Texture2D" uid="uid://1a12ki6etn4b" path="res://assets/textures/Dark/texture_09.png" id="4_jnf1o"]
+[ext_resource type="Texture2D" uid="uid://bsvc4pqsnyb34" path="res://assets/textures/Green/texture_09.png" id="5_y8vh1"]
+[ext_resource type="Texture2D" uid="uid://cqieaxqei5e7t" path="res://assets/textures/Orange/texture_09.png" id="6_6icqb"]
+[ext_resource type="Texture2D" uid="uid://djabntys6mtnu" path="res://assets/textures/Purple/texture_09.png" id="7_viri5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -22,6 +21,34 @@ sky = SubResource("Sky_lquwl")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="GDScript" id="GDScript_7kq63"]
+script/source = "extends Control
+
+@onready var current_state_label: Label = $VBoxContainer/CurrentState
+@onready var current_state_2_label: Label = $VBoxContainer/CurrentState2
+@onready var progress_bar: ProgressBar = $ProgressBar
+
+
+func _ready() -> void:
+	#SignalManager.player_move_state_changed.connect(_update_move_state)
+	#SignalManager.player_attack_state_changed.connect(_update_attack_state)
+	SignalManager.stamina_changed.connect(_update_stamina_bar)
+
+
+func _update_move_state(current_state: MoveState, previous_state: MoveState) -> void:
+	if previous_state and current_state:
+		current_state_label.text = \"Current Move State: \" + current_state.name
+
+
+func _update_attack_state(current_state: AttackState, previous_state: AttackState) -> void:
+	if previous_state and current_state:
+		current_state_2_label.text = \"Current Attack State: \" + current_state.name
+
+
+func _update_stamina_bar(value: float) -> void:
+	progress_bar.value = value
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
 bg_color = Color(0.958374, 0.95233, 0.99485, 1)
 
@@ -29,19 +56,19 @@ bg_color = Color(0.958374, 0.95233, 0.99485, 1)
 bg_color = Color(1, 1, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
-albedo_texture = ExtResource("1_h2yge")
+albedo_texture = ExtResource("4_jnf1o")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek77"]
-albedo_texture = ExtResource("2_7mycd")
+albedo_texture = ExtResource("5_y8vh1")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
-albedo_texture = ExtResource("3_272bh")
+albedo_texture = ExtResource("6_6icqb")
 uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
-albedo_texture = ExtResource("4_5vw27")
+albedo_texture = ExtResource("7_viri5")
 uv1_triplanar = true
 
 [node name="Main" type="Node3D"]
@@ -60,7 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("7_272bh")
+script = SubResource("GDScript_7kq63")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -93,15 +120,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_kek77")
 
 [node name="Entities" type="Node3D" parent="."]
 
-[node name="Player" parent="Entities" instance=ExtResource("1_0xm2m")]
+[node name="Player" parent="Entities" instance=ExtResource("1_xmdhc")]
 
-[node name="Mergh" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("8_5vw27")]
+[node name="Mergh" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("2_n5msl")]
 transform = Transform3D(0.996368, 0, 0.0851562, 0, 1, 0, -0.0851562, 0, 0.996368, 1.58911, 0, -9.52922)
 target = NodePath("../Player")
 
 [node name="Camera" type="Node3D" parent="."]
 
-[node name="CameraController" parent="Camera" node_paths=PackedStringArray("camera_reference", "entity_to_follow") instance=ExtResource("2_h2yge")]
+[node name="CameraController" parent="Camera" node_paths=PackedStringArray("camera_reference", "entity_to_follow") instance=ExtResource("3_3dbuo")]
 camera_reference = NodePath("../Camera3D")
 entity_to_follow = NodePath("../../Entities/Player")
 vertical_offset = 3.0

@@ -29,7 +29,9 @@ func change_state(new_state: AttackState) -> void:
 	current_state = new_state
 	current_state.enter(previous_state)
 	
-	SignalManager.attack_state_changed.emit(current_state, previous_state)
+	#print(self.name, ": ", current_state.name)
+	
+	#SignalManager.attack_state_changed.emit(current_state, previous_state)
 
 
 # Pass through function for the Player to call,

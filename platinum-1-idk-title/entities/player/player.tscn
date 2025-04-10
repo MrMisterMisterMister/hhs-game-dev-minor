@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://07u0kfesv7ia" path="res://utilities/state_machine/state_machine.tscn" id="3_26q78"]
 [ext_resource type="Script" uid="uid://l2wh5u8c7flk" path="res://entities/player/camera/spring_arm_3d.gd" id="3_wvtmh"]
 [ext_resource type="Script" uid="uid://bikbqjpc1igb3" path="res://entities/player/camera/camera_3d.gd" id="4_7thud"]
-[ext_resource type="Script" uid="uid://c55hpk4bg6ao6" path="res://entities/player/states/idle.gd" id="4_fkugw"]
-[ext_resource type="Script" uid="uid://b8jr2daeogl5" path="res://entities/player/states/walk.gd" id="5_8fjmc"]
+[ext_resource type="Script" uid="uid://c55hpk4bg6ao6" path="res://entities/player/states/movement/idle.gd" id="4_fkugw"]
+[ext_resource type="Script" uid="uid://b8jr2daeogl5" path="res://entities/player/states/movement/walk.gd" id="5_8fjmc"]
 [ext_resource type="Script" uid="uid://ge8rcvfqhyrb" path="res://entities/player/move_component.gd" id="5_fkugw"]
-[ext_resource type="Script" uid="uid://ecis3583ffhu" path="res://entities/player/states/run.gd" id="6_qiwj3"]
-[ext_resource type="Script" uid="uid://c6kump3lylqeg" path="res://entities/player/states/jump.gd" id="7_26q78"]
-[ext_resource type="Script" uid="uid://ddchp0moxt6gy" path="res://entities/player/states/rest.gd" id="8_bectd"]
+[ext_resource type="Script" uid="uid://ecis3583ffhu" path="res://entities/player/states/movement/run.gd" id="6_qiwj3"]
+[ext_resource type="Script" uid="uid://c6kump3lylqeg" path="res://entities/player/states/movement/jump.gd" id="7_26q78"]
+[ext_resource type="Script" uid="uid://ddchp0moxt6gy" path="res://entities/player/states/movement/rest.gd" id="8_bectd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 

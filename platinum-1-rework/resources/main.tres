@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://1gii585hlc28"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6mipg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ttyy2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wei5n"]
+content_margin_left = 15.0
+content_margin_top = 25.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_psxlf"]
+content_margin_left = 15.0
+content_margin_top = 25.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ed42j"]
+content_margin_left = 15.0
+content_margin_top = 25.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gvdcw"]
+content_margin_left = 15.0
+content_margin_top = 35.0
+content_margin_right = 15.0
+content_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_40t7p"]
+bg_color = Color(0, 0, 0, 0.333333)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40t7p"]
+
+[resource]
+Button/constants/outline_size = 5
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_6mipg")
+Label/constants/outline_size = 5
+OptionButton/font_sizes/font_size = 35
+PopupMenu/font_sizes/font_size = 25
+TabBar/constants/outline_size = 2
+TabBar/font_sizes/font_size = 35
+TabContainer/constants/outline_size = 5
+TabContainer/font_sizes/font_size = 35
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_ttyy2")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_wei5n")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxEmpty_psxlf")
+TabContainer/styles/tab_selected = SubResource("StyleBoxEmpty_ed42j")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxEmpty_gvdcw")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_40t7p")
+VSeparator/styles/separator = SubResource("StyleBoxEmpty_40t7p")

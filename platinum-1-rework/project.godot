@@ -11,13 +11,26 @@ config_version=5
 [application]
 
 config/name="Platinum 1 - Rework"
-run/main_scene="uid://ip5r63007c10"
+run/main_scene="uid://dn5hf5v6q0e8y"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SignalManager="*res://autoloads/signal_manager.gd"
+UIManager="*res://autoloads/ui_manager.gd"
+SceneManager="*res://autoloads/scene_manager.gd"
+GameManager="*res://autoloads/game_manager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[gui]
+
+theme/custom="uid://1gii585hlc28"
+theme/custom_font="uid://c5uy83qsghftk"
 
 [input]
 

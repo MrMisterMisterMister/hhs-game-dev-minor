@@ -11,6 +11,8 @@ func _ready() -> void:
 	move_state_machine.init(self, target, animation_tree, combat_component)
 	attack_state_machine.init(self, animation_tree, combat_component)
 	
+	stats.init()
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 

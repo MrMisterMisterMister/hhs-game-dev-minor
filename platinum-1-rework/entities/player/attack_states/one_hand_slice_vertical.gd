@@ -30,6 +30,10 @@ func input(_event: InputEvent) -> AttackState:
 
 
 func process(_delta: float) -> AttackState:
+	if combat_component.is_hurt:
+		animation_tree.set("parameters/AttackOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+		return standby_state
+	
 	if not combat_component.is_attacking:
 		return standby_state
 	
