@@ -169,7 +169,6 @@ parameters/TimeScale/scale = 0.5
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Visual/UndeadWarrior/Rig" index="0"]
-bones/1/position = Vector3(0.00841076, 0.360563, 1.21849e-10)
 bones/1/position = Vector3(0.00841076, 0.375533, 1.21849e-10)
 bones/2/rotation = Quaternion(-0.0605995, -0.130282, -0.00797808, 0.989591)
 bones/2/scale = Vector3(1, 1, 1)
