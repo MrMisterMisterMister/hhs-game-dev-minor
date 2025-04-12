@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfqkutwq7g6id"]
+
+[ext_resource type="Script" uid="uid://d2vba8a6gis55" path="res://ui/pause_menu/pause_menu.gd" id="1_jbgdu"]
+[ext_resource type="Shader" uid="uid://desk7kaxqx4qv" path="res://resources/shaders/bg_blur_shader.gdshader" id="1_mnjdh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbgdu"]
+shader = ExtResource("1_mnjdh")
+shader_parameter/blur_amount = 3.0
+shader_parameter/mix_amount = 0.3
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jbgdu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_jbgdu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 75
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"HeaderLarge"
+text = "Game Paused"
+
+[node name="ButtonContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Resume" type="Button" parent="VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"CustomButton"
+text = "Resume"
+
+[node name="Restart" type="Button" parent="VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"CustomButton"
+text = "Restart"
+
+[node name="Settings" type="Button" parent="VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"CustomButton"
+text = "Settings"
+
+[node name="Exit" type="Button" parent="VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"CustomButton"
+text = "Exit"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="button_up" from="VBoxContainer/ButtonContainer/VBoxContainer/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="VBoxContainer/ButtonContainer/VBoxContainer/Restart" to="." method="_on_restart_button_up"]
+[connection signal="button_up" from="VBoxContainer/ButtonContainer/VBoxContainer/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="VBoxContainer/ButtonContainer/VBoxContainer/Exit" to="." method="_on_exit_button_up"]

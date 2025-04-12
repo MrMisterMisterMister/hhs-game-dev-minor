@@ -1,0 +1,113 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn5hf5v6q0e8y"]
+
+[ext_resource type="Script" uid="uid://ws717pf1yn05" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+[ext_resource type="PackedScene" uid="uid://cgfkvrc8oxiaa" path="res://ui/main_menu/main_menu_background.tscn" id="2_mu8pm"]
+[ext_resource type="AudioStream" uid="uid://sdbjuq668184" path="res://assets/audio/Killers.mp3" id="3_omy8q"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uhj5c")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="MainMenuBackground" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_mu8pm")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.33
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.356863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 75
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TitleContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"HeaderLarge"
+text = "Main Menu"
+
+[node name="ButtonContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Start" type="Button" parent="Control/VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+theme_type_variation = &"CustomButton"
+text = "Start"
+
+[node name="Settings" type="Button" parent="Control/VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+theme_type_variation = &"CustomButton"
+text = "Settings"
+
+[node name="Exit" type="Button" parent="Control/VBoxContainer/ButtonContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 56)
+layout_mode = 2
+theme_type_variation = &"CustomButton"
+text = "Exit
+"
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_omy8q")
+volume_db = -15.0
+bus = &"Music"
+
+[connection signal="button_up" from="Control/VBoxContainer/ButtonContainer/VBoxContainer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="Control/VBoxContainer/ButtonContainer/VBoxContainer/Settings" to="." method="_on_settings_button_up"]
+[connection signal="button_up" from="Control/VBoxContainer/ButtonContainer/VBoxContainer/Exit" to="." method="_on_exit_button_up"]

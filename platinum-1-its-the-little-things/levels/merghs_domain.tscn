@@ -1,0 +1,103 @@
+[gd_scene load_steps=17 format=3 uid="uid://ip5r63007c10"]
+
+[ext_resource type="PackedScene" uid="uid://cttlg45egj3mi" path="res://entities/player/player.tscn" id="1_58l8q"]
+[ext_resource type="Script" uid="uid://dbi6wwcu1qqnv" path="res://levels/merghs_domain.gd" id="1_vwvjm"]
+[ext_resource type="PackedScene" uid="uid://cobak6tahofco" path="res://entities/enemies/mergh/mergh.tscn" id="2_cpgbq"]
+[ext_resource type="PackedScene" uid="uid://d3boh3282tehj" path="res://utilities/camera_controller/camera_controller.tscn" id="3_vwvjm"]
+[ext_resource type="Texture2D" uid="uid://1a12ki6etn4b" path="res://assets/textures/Dark/texture_09.png" id="4_xxgmi"]
+[ext_resource type="Texture2D" uid="uid://bsvc4pqsnyb34" path="res://assets/textures/Green/texture_09.png" id="5_p16uu"]
+[ext_resource type="Texture2D" uid="uid://cqieaxqei5e7t" path="res://assets/textures/Orange/texture_09.png" id="6_3kth2"]
+[ext_resource type="Texture2D" uid="uid://djabntys6mtnu" path="res://assets/textures/Purple/texture_09.png" id="7_rofuk"]
+[ext_resource type="AudioStream" uid="uid://ccw2tp2ppspqx" path="res://assets/audio/Gustav Sting.mp3" id="8_cpgbq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_lquwl"]
+sky_material = SubResource("ProceduralSkyMaterial_1bvp3")
+
+[sub_resource type="Environment" id="Environment_7mycd"]
+background_mode = 1
+sky = SubResource("Sky_lquwl")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_texture = ExtResource("4_xxgmi")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek77"]
+albedo_texture = ExtResource("5_p16uu")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+albedo_texture = ExtResource("6_3kth2")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+albedo_texture = ExtResource("7_rofuk")
+uv1_triplanar = true
+
+[node name="MerghsDomain" type="Node3D"]
+script = ExtResource("1_vwvjm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7mycd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.926093, 0.377295, 0.000126937, 0.00799496, -0.0199605, 0.999769, 0.37721, -0.925878, -0.0215017, 0, 4.54097, 0)
+shadow_enabled = true
+
+[node name="Entities" type="Node3D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("1_58l8q")]
+
+[node name="Mergh" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("2_cpgbq")]
+transform = Transform3D(0.996368, 0, 0.0851562, 0, 1, 0, -0.0851562, 0, 0.996368, 1.58911, 0, -9.52922)
+target = NodePath("../Player")
+
+[node name="Camera" type="Node3D" parent="."]
+
+[node name="CameraController" parent="Camera" node_paths=PackedStringArray("camera_reference", "entity_to_follow") instance=ExtResource("3_vwvjm")]
+camera_reference = NodePath("../Camera3D")
+entity_to_follow = NodePath("../../Entities/Player")
+vertical_offset = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="Camera"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+material_override = SubResource("StandardMaterial3D_1bvp3")
+use_collision = true
+collision_mask = 7
+size = Vector3(1000, 5, 1000)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13104, 1, 0)
+material_override = SubResource("StandardMaterial3D_kek77")
+use_collision = true
+collision_mask = 7
+size = Vector3(2, 2, 2)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4831, 1.5, 2.25678)
+material_override = SubResource("StandardMaterial3D_4c57u")
+use_collision = true
+collision_mask = 7
+size = Vector3(3, 3, 3)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8542, 2, 7.33726)
+material_override = SubResource("StandardMaterial3D_efxa6")
+use_collision = true
+collision_mask = 7
+size = Vector3(4, 4, 4)
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_cpgbq")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"

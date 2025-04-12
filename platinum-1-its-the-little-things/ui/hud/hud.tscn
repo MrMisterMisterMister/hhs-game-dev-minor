@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://7qp73kfrh6pm"]
+
+[ext_resource type="Script" uid="uid://1td2w7g7w0n4" path="res://ui/hud/hud.gd" id="1_xmswo"]
+[ext_resource type="PackedScene" uid="uid://b8jde4n7msi5t" path="res://ui/bars/health_bar.tscn" id="2_e0nub"]
+[ext_resource type="PackedScene" uid="uid://d1kvcpsw31aup" path="res://ui/bars/stamina_bar.tscn" id="3_w75iv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e0nub"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmswo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="PlayerHealthBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_e0nub")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerStaminaBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_w75iv")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BossHealthBar" parent="MarginContainer" instance=ExtResource("2_e0nub")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/background = SubResource("StyleBoxEmpty_e0nub")
+max_value = 300.0
+
+[node name="PlayerStateLabel" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Current State: "

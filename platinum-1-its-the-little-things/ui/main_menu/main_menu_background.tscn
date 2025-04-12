@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgfkvrc8oxiaa"]
+
+[ext_resource type="Script" uid="uid://dm8k742sf5vfc" path="res://ui/main_menu/main_menu_background.gd" id="1_hdh2y"]
+[ext_resource type="PackedScene" uid="uid://fnboncktaubj" path="res://entities/enemies/mobs/skeleton_mage.tscn" id="2_nok1n"]
+[ext_resource type="PackedScene" uid="uid://b6a7amyb6ks5v" path="res://entities/enemies/mobs/skeleton_minion.tscn" id="3_g44mm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hdh2y"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.0856102, 0.088886, 0.094057, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_nok1n"]
+sky_material = SubResource("ProceduralSkyMaterial_hdh2y")
+
+[sub_resource type="Environment" id="Environment_g44mm"]
+background_mode = 1
+sky = SubResource("Sky_nok1n")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="MainMenuBackground" type="Node3D"]
+script = ExtResource("1_hdh2y")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g44mm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Skeleton_Mage" parent="." instance=ExtResource("2_nok1n")]
+transform = Transform3D(0.970296, 0, 0.241922, 0, 1, 0, -0.241922, 0, 0.970296, 0, 0, 0)
+visible = false
+
+[node name="Skeleton_Minion" parent="." instance=ExtResource("3_g44mm")]
+transform = Transform3D(0.862514, 0, -0.506034, 0, 1, 0, 0.506034, 0, 0.862514, 1.401, 0, 0)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.991445, 0.130526, 0, -0.130526, 0.991445, 0.616746, 1.46158, 1.55313)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.072, -0.513, 0.982)
