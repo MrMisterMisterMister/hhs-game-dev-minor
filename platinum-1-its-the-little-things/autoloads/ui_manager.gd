@@ -89,6 +89,8 @@ func handle_pause() -> void:
 	if ui_list.has("GameOver"):
 		return
 	
+	set_process(UI)
+	
 	if not paused:
 		prev_mouse_mode = Input.mouse_mode
 	
