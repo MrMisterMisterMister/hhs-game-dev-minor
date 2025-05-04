@@ -3,6 +3,8 @@ extends Agent
 var patrol_points: Array[Vector3]
 var current_point: int = 0
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 func _physics_process(delta: float) -> void:
 	if not destination:
