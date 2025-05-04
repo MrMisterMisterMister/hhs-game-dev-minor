@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://2syxuuctgqhh"]
+[gd_scene load_steps=9 format=3 uid="uid://2syxuuctgqhh"]
 
 [ext_resource type="PackedScene" uid="uid://ble687apiai3y" path="res://agents/agent.tscn" id="1_w1lmk"]
+[ext_resource type="Script" uid="uid://cxaj6yogd1ord" path="res://agents/patroller/patroller.gd" id="2_2lmjy"]
 [ext_resource type="Texture2D" uid="uid://brnqqagr0hlyy" path="res://icon.svg" id="2_58cnv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2lmjy"]
@@ -35,13 +36,15 @@ _data = {
 }
 
 [node name="Patroller" instance=ExtResource("1_w1lmk")]
+script = ExtResource("2_2lmjy")
+type = 1
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2lmjy")
 
 [node name="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.0251, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.13806, 0)
 material_override = SubResource("StandardMaterial3D_bwado")
 mesh = SubResource("CapsuleMesh_n7vnj")
 
@@ -49,3 +52,6 @@ mesh = SubResource("CapsuleMesh_n7vnj")
 libraries = {
 &"": SubResource("AnimationLibrary_chec4")
 }
+
+[node name="Label3D" parent="." index="4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.41916, 0)

@@ -6,31 +6,41 @@ enum Type {
 	PATROLLER
 }
 
-const SPEED = 5.0
-
+@export var speed = 5.0
 @export var type: Type
+@export var tolerance: float = 1.0
+@export var rotation_speed: float = 6.0
 
-var selected: bool = false
+var selected: bool = false:
+	set(value):
+		selected = value
+		label.visible = value
+
+var destination: Vector3
+
+var _current_direction: Vector3
+
+@onready var nav: NavigationAgent3D = $NavigationAgent3D
+@onready var label: Label3D = $Label3D
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	velocity.y += get_gravity().y * delta
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	if destination:
+		nav.target_position = destination
+		_current_direction = (nav.get_next_path_position() - global_position).normalized()
+		velocity = _current_direction * speed
+
+	if global_position.distance_to(destination) < tolerance:
+		velocity = Vector3.ZERO
+
+	if _current_direction.length() > 0:
+		var target_rotation: Basis = Basis.looking_at(_current_direction, Vector3.UP)
+		transform.basis = transform.basis.slerp(target_rotation, rotation_speed * delta)
 
 	move_and_slide()
 
 
-func _get_next_position() -> void:
-	pass
+static func type_to_string(t: Type) -> String:
+	return Type.keys()[t]

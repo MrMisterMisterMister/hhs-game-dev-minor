@@ -35,12 +35,14 @@ _data = {
 }
 
 [node name="Normal" instance=ExtResource("1_y4fh5")]
+tolerance = 0.8
 
 [node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.519943, 0)
 shape = SubResource("SphereShape3D_ctjn2")
 
 [node name="MeshInstance3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, -0.761635, 0.648007, 0, -0.648007, -0.761635, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.73205, 0.681251, 0, -0.681251, 0.73205, 0, 0.519943, 0)
 material_override = SubResource("StandardMaterial3D_pvoie")
 mesh = SubResource("SphereMesh_7c00n")
 
@@ -48,3 +50,6 @@ mesh = SubResource("SphereMesh_7c00n")
 libraries = {
 &"": SubResource("AnimationLibrary_smhrn")
 }
+
+[node name="Label3D" parent="." index="4"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25869, 0)
