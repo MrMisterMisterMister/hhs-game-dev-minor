@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bo4msjkc7akkr"]
+
+[ext_resource type="Script" uid="uid://byj1e1dyp1kjs" path="res://effects/trail/trail.gd" id="1_ueble"]
+
+[sub_resource type="Gradient" id="Gradient_0r3al"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.694118, 0.560784, 0.811765, 1, 0.528743, 0.377609, 0.654118, 1, 0.231427, 0.147034, 0.29909, 0.545098)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q8d4y"]
+gradient = SubResource("Gradient_0r3al")
+
+[sub_resource type="Curve" id="Curve_ey1nl"]
+_data = [Vector2(0, 1), 0.0, 0.294724, 0, 0, Vector2(1, 0.031337), -3.34236, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2hwaa"]
+curve = SubResource("Curve_ey1nl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8kp1a"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_2hwaa")
+color_ramp = SubResource("GradientTexture1D_q8d4y")
+
+[node name="TrailTwo" type="GPUParticles2D"]
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_8kp1a")
+script = ExtResource("1_ueble")

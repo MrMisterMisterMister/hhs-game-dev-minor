@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://nm0hcrhuwlhx"]
+
+[ext_resource type="Shader" uid="uid://dewc45enw3acv" path="res://effects/blur_shader.gdshader" id="1_4qlno"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jktm"]
+shader = ExtResource("1_4qlno")
+shader_parameter/blur_amount = -2.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_4qlno"]
+resource_name = "blur"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(17.1484, 1.93187, 1),
+"update": 0,
+"values": [-2.0, 10.0, -2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(2.37841, 3.24901, 1),
+"update": 0,
+"values": [0.0, 0.8, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwk32"]
+_data = {
+&"blur": SubResource("Animation_4qlno")
+}
+
+[node name="ColorRect" type="ColorRect"]
+material = SubResource("ShaderMaterial_7jktm")
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 144.0
+offset_bottom = 80.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fwk32")
+}
