@@ -1,4 +1,3 @@
-@ -1,25 +0,0 @@
 # Bouncy Effects - Effects and Shaders Gold 1 Achievement
 Added juicy effects for a bouncy ball game.
 
@@ -13,5 +12,6 @@ Added juicy effects for a bouncy ball game.
 ## Credits
 - [Blur Shader by LeChatonMortel][1]
 - Starter bouncy ball game not made by someone else 07.
+- Camera shake, from effects lessons.
 
   [1]: https://godotshaders.com/shader/simple-blur-godot-4-1/
