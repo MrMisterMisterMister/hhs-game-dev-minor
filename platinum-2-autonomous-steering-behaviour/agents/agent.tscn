@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3fbbxl752xdm"]
+
+[ext_resource type="Script" uid="uid://pypmbjouva7f" path="res://agents/agent.gd" id="1_6poxf"]
+[ext_resource type="Texture2D" uid="uid://cg4kav8ep8qf8" path="res://icon.svg" id="2_3e1fn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e1fn"]
+size = Vector2(128, 129)
+
+[node name="Agent" type="CharacterBody2D"]
+script = ExtResource("1_6poxf")
+speed = 200.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_max_distance = 50.0
+simplify_path = true
+avoidance_enabled = true
+radius = 20.0
+time_horizon_obstacles = 1.0
+avoidance_priority = 0.5
+debug_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_3e1fn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_3e1fn")

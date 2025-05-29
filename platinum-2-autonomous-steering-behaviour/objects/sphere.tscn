@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://yku0xmpw0o0e"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_tpwqb"]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0cyv0"]
+radius = 40.0
+
+[node name="Sphere" type="StaticBody2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-4.76837e-07, -4.76837e-07)
+scale = Vector2(4, 4)
+mesh = SubResource("SphereMesh_tpwqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0cyv0")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 40.0
