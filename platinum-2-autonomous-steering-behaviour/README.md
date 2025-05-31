@@ -5,4 +5,5 @@ Reimplemtation of AI lecture 1 steering behaviour.
 - Entities moving towards mouse position.
 - Flocking behaviour.
 - Autonomous steering behaviour.
+- Chasing and fleeing behaviour.
 - Obstacle avoidance.

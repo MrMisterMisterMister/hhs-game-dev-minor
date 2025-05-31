@@ -18,40 +18,24 @@ navigation_polygon = SubResource("NavigationPolygon_umreq")
 
 [node name="Bob" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(84, 80)
-speed = 300.0
 
 [node name="John" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(242, 226)
-path_update_interval = 0.1
-wave_frequency = 4.0
 
 [node name="Paul" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(80, 226)
-path_update_interval = 0.3
-wave_amplitude = 5.0
 
 [node name="Jane" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(244, 82)
-speed = 150.0
 
 [node name="Tom" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(297, 493)
-speed = 250.0
-path_update_interval = 0.1
-wave_frequency = 4.0
-wave_amplitude = 4.0
 
 [node name="Dick" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(655, 194)
-speed = 450.0
-wave_frequency = 5.0
-wave_amplitude = 5.0
 
 [node name="Harry" parent="Agents" instance=ExtResource("1_80vhd")]
 position = Vector2(505, 83)
-speed = 150.0
-wave_frequency = 6.0
-wave_amplitude = 6.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 

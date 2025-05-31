@@ -8,7 +8,6 @@ size = Vector2(128, 129)
 
 [node name="Agent" type="CharacterBody2D"]
 script = ExtResource("1_6poxf")
-speed = 200.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 50.0
@@ -16,8 +15,8 @@ simplify_path = true
 avoidance_enabled = true
 radius = 20.0
 time_horizon_obstacles = 1.0
+max_speed = 1000.0
 avoidance_priority = 0.5
-debug_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
@@ -28,3 +27,9 @@ texture = ExtResource("2_3e1fn")
 position = Vector2(0, -0.5)
 scale = Vector2(0.2, 0.2)
 shape = SubResource("RectangleShape2D_3e1fn")
+
+[node name="FleeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="FleeTimer" to="." method="_on_flee_timer_timeout"]
