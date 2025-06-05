@@ -10,12 +10,21 @@ extends Node3D
 # dungeon generation instantaneously.
 ################################################################################
 
-@export var grid_map: GridMap
+
 @export var generate: bool = false:
 	set(value):
 		if Engine.is_editor_hint() and value:
 			create_dungeon()
+@export var clear_children: bool = false:
+	set(value):
+		if Engine.is_editor_hint() and value:
+			for child in get_children():
+				remove_child(child)
+				child.queue_free()
+@export var grid_map: GridMap
+@export var nav_region: NavigationRegion3D
 
+var navigation: bool = false # WIP
 var directions: Dictionary = {
 	"front": Vector3i.FORWARD,
 	"back": Vector3i.BACK,
@@ -24,6 +33,8 @@ var directions: Dictionary = {
 }
 
 var spawn_point_placed: bool = false
+var spawn_position: Vector3
+var spawned_dragon: AspiringDragon
 
 
 func handle_wall_removal(cell: Node3D, dir: String, cell_index: int, neighbor_index: int) -> void:
@@ -36,7 +47,7 @@ func handle_wall_removal(cell: Node3D, dir: String, cell_index: int, neighbor_in
 
 func create_dungeon() -> void:
 	grid_map.visible = false
-	visible = true
+	nav_region.visible = true
 
 	# Remove existing children
 	for c in get_children():
@@ -61,8 +72,9 @@ func create_dungeon() -> void:
 
 		# Add spawn point to the first room we find
 		if cell_index == 0 and not spawn_point_placed:
-			add_spawn_point(room.position)
+			_add_spawn_point(room.position)
 			spawn_point_placed = true
+			_spawn_dragon()
 
 		for i in range(directions.size()):
 			var dir_name: String = directions.keys()[i]
@@ -78,10 +90,35 @@ func create_dungeon() -> void:
 		if time % 10 == 9:
 			await get_tree().create_timer(0).timeout
 
+	if navigation:
+		nav_region.bake_navigation_mesh()
+		if not nav_region.bake_finished.is_connected(_on_bake_finished):
+			nav_region.bake_finished.connect(_on_bake_finished)
 
-func add_spawn_point(spawn_position: Vector3) -> void:
+
+func _add_spawn_point(spawn_pos: Vector3) -> void:
 	var spawn_marker: Marker3D = Marker3D.new()
-	spawn_marker.name = "PlayerSpawn"
-	spawn_marker.position = spawn_position
+	spawn_marker.name = "SpawnPoint"
+	spawn_marker.position = spawn_pos
 	add_child(spawn_marker)
 	spawn_marker.set_owner(owner)
+	spawn_position = spawn_pos
+
+
+func _spawn_dragon() -> void:
+	var dragon_resource: PackedScene = preload("uid://qr1qwydfvpcn")
+	var dragon: AspiringDragon = dragon_resource.instantiate()
+	add_child(dragon)
+	dragon.global_position = spawn_position
+	spawned_dragon = dragon
+
+
+func _on_bake_finished() -> void:
+	if Engine.is_editor_hint():
+		return
+
+	spawned_dragon.start_moving()
+
+
+func _toggle_visibility() -> void:
+	nav_region.visible = false

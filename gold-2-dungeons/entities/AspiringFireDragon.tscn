@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://qr1qwydfvpcn"]
+
+[ext_resource type="Script" uid="uid://dpa3rhuuct0uk" path="res://entities/aspiring_fire_dragon.gd" id="1_cyuvg"]
+[ext_resource type="Texture2D" uid="uid://cw1r6a4fjrb0p" path="res://icon.svg" id="1_wsen7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cyuvg"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bmti"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("1_wsen7")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qjtgd"]
+material = SubResource("StandardMaterial3D_1bmti")
+radius = 0.25
+height = 1.0
+
+[node name="AspiringFireDragon" type="CharacterBody3D"]
+script = ExtResource("1_cyuvg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_cyuvg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_qjtgd")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7754, 0)
+billboard = 1
+shaded = true
+modulate = Color(1, 0, 0, 1)
+text = "Aspiring Fire Dragon"
+font_size = 256
+outline_size = 36
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+debug_enabled = true
+debug_path_custom_color = Color(1, 0, 0, 1)

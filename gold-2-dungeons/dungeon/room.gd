@@ -3,7 +3,7 @@ class_name Room
 extends Node3D
 
 @onready var room_floor: MeshInstance3D = $Floor
-@onready var room_ceiling: MeshInstance3D = $Ceiling
+#@onready var room_ceiling: MeshInstance3D = $Ceiling
 @onready var wall_right: MeshInstance3D = $WallRight
 @onready var wall_left: MeshInstance3D = $WallLeft
 @onready var wall_back: MeshInstance3D = $WallBack

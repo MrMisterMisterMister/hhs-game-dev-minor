@@ -9,6 +9,8 @@ extends Node3D
 ## connections for more complex layouts.
 ################################################################################
 
+signal generation_started
+
 enum TileType {
 	ROOM = 0,
 	HALLWAY = 1,
@@ -28,7 +30,7 @@ enum TileType {
 		dungeon_size = value
 		if Engine.is_editor_hint():
 			visualize_border()
-@export var room_generator: RoomGenerator
+
 ## Chance (0-1) of additional hallways being added beyond the minimum required
 @export_range(0.0, 1.0) var extra_connection_chance: float = 0.25
 ## Number of rooms to attempt to place
@@ -65,7 +67,9 @@ func visualize_border() -> void:
 	if not grid_map: 
 		return
 
+	grid_map.visible = true
 	grid_map.clear()
+
 	for i in range(-1, dungeon_size + 1):
 		grid_map.set_cell_item(Vector3i(i, 0, -1), TileType.BORDER)
 		grid_map.set_cell_item(Vector3i(i, 0, dungeon_size), TileType.BORDER)
@@ -75,8 +79,7 @@ func visualize_border() -> void:
 
 ## Main generation function that creates the complete dungeon
 func generate() -> void:
-	grid_map.visible = true
-	room_generator.visible = false
+	generation_started.emit()
 
 	# Reset rooms
 	room_tiles.clear()
@@ -288,3 +291,7 @@ func find_closest_tile(tiles: PackedVector3Array, target: Vector3) -> Vector3:
 			closest_distance = distance
 
 	return closest_tile
+
+
+func toggle_visibility() -> void:
+	visible = not visible
