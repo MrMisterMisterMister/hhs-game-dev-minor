@@ -26,7 +26,7 @@ shader_parameter/move_speed = 1.0
 shader_parameter/wave_speed = 15.0
 shader_parameter/wave_y = 10.0
 shader_parameter/wave_x = 0.5
-shader_parameter/radius = 1.0
+shader_parameter/radius = 5.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_0xm2m"]
 material = SubResource("ShaderMaterial_h2yge")
