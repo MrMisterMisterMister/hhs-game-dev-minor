@@ -1,0 +1,102 @@
+[gd_scene load_steps=19 format=3 uid="uid://7iq2f4lf41n1"]
+
+[ext_resource type="Shader" uid="uid://128kuotcspiv" path="res://shaders/basic_vertex.gdshader" id="1_ig7tw"]
+[ext_resource type="Shader" uid="uid://b1jenh3fhecxf" path="res://shaders/basic_fragment.gdshader" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://djegh8wtkeojd" path="res://icon.svg" id="3_h2yge"]
+[ext_resource type="Shader" uid="uid://gat66p2n0mga" path="res://shaders/liquidity.gdshader" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://3cjja3fn55qa" path="res://utils/camera.gd" id="5_lquwl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1bvp3"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_lquwl"]
+sky_material = SubResource("ProceduralSkyMaterial_1bvp3")
+
+[sub_resource type="Environment" id="Environment_7mycd"]
+background_mode = 2
+sky = SubResource("Sky_lquwl")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
+render_priority = 0
+shader = ExtResource("1_ig7tw")
+shader_parameter/move_speed = 1.0
+shader_parameter/wave_speed = 15.0
+shader_parameter/wave_y = 10.0
+shader_parameter/wave_x = 0.5
+shader_parameter/radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_0xm2m"]
+material = SubResource("ShaderMaterial_h2yge")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
+render_priority = 0
+shader = ExtResource("2_0xm2m")
+shader_parameter/tiling = 4.0
+shader_parameter/wave_speed = 5.0
+shader_parameter/color_speed = 1.0
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.784167, 1, 0.65, 1)
+shader_parameter/texture_albedo = ExtResource("3_h2yge")
+
+[sub_resource type="SphereMesh" id="SphereMesh_7mycd"]
+material = SubResource("ShaderMaterial_lquwl")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1bvp3"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lquwl"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_1bvp3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7mycd"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_272bh"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_7mycd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vw27"]
+render_priority = 0
+shader = ExtResource("4_1bvp3")
+shader_parameter/color = Color(1, 0.843137, 0, 1)
+shader_parameter/texture1 = SubResource("NoiseTexture2D_lquwl")
+shader_parameter/texture2 = SubResource("NoiseTexture2D_272bh")
+shader_parameter/direction1 = Vector2(1, 0)
+shader_parameter/direction2 = Vector2(0, 1)
+shader_parameter/speed1 = 0.03
+shader_parameter/speed2 = 0.02
+
+[sub_resource type="BoxMesh" id="BoxMesh_kek77"]
+material = SubResource("ShaderMaterial_5vw27")
+size = Vector3(5, 5, 5)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7mycd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.422618, 0.906308, 0, -0.906308, -0.422618, 2.22516, 0, 0)
+shadow_enabled = true
+
+[node name="Shader" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -2.5, 0)
+mesh = SubResource("SphereMesh_0xm2m")
+
+[node name="Shader2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 5, 0)
+mesh = SubResource("SphereMesh_7mycd")
+
+[node name="Shader3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+mesh = SubResource("BoxMesh_kek77")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.972772, 0.231765, 0, -0.231765, 0.972772, 0, 4, 7)
+script = ExtResource("5_lquwl")
