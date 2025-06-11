@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn2r2ofkv0dqk"]
+
+[ext_resource type="Script" uid="uid://chihq35ndx3yc" path="res://entities/area/oops.gd" id="1_7yl42"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7yl42"]
+size = Vector3(50, 0.1, 50)
+
+[node name="Oops" type="Area3D"]
+script = ExtResource("1_7yl42")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+shape = SubResource("BoxShape3D_7yl42")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

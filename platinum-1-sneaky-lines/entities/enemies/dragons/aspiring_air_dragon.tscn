@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0ixrv7hnybb5"]
+
+[ext_resource type="PackedScene" uid="uid://qr1qwydfvpcn" path="res://entities/enemies/dragons/aspiring_dragon.tscn" id="1_23fms"]
+
+[node name="AspiringAirDragon" instance=ExtResource("1_23fms")]
+color = Color(0.686275, 0.619608, 0.454902, 1)
+type = 3
+
+[node name="SpotLight3D" parent="MeshInstance3D/Area3D" index="0"]
+light_color = Color(0.686275, 0.619608, 0.454902, 1)
+
+[node name="Label3D" parent="." index="2"]
+modulate = Color(0.686275, 0.619608, 0.454902, 1)
+text = "Aspiring Air Dragon"
+
+[node name="OmniLight3D" parent="." index="4"]
+light_color = Color(0.686275, 0.619608, 0.454902, 1)

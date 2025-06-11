@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfmor5d3mecc0"]
+
+[ext_resource type="Script" uid="uid://dikrohdoqevbm" path="res://entities/area/win.gd" id="1_lc3w2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pqt7t"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lc3w2"]
+material = SubResource("StandardMaterial3D_pqt7t")
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tb13p"]
+size = Vector3(1, 0.1, 1)
+
+[node name="Win" type="Area3D"]
+script = ExtResource("1_lc3w2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("PlaneMesh_lc3w2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("BoxShape3D_tb13p")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.222828, 0)
+light_color = Color(0, 1, 0, 1)
+light_energy = 50.0
+omni_range = 1.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

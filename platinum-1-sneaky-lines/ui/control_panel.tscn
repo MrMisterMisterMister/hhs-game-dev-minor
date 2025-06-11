@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv8mwrnid4je8"]
+
+[ext_resource type="Script" uid="uid://8olymtsmw8a1" path="res://ui/control_panel.gd" id="1_t8mf3"]
+
+[node name="ControlPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t8mf3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -56.0
+offset_right = 148.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="GenerateDungeon" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Generate Dungeon"
+
+[node name="GenerateRooms" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Generate Rooms"
+
+[connection signal="button_up" from="MarginContainer/HBoxContainer/GenerateDungeon" to="." method="_on_button_up"]
+[connection signal="button_up" from="MarginContainer/HBoxContainer/GenerateRooms" to="." method="_on_button_up"]

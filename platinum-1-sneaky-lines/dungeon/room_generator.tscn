@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhhy3dmnnoqyu"]
+
+[ext_resource type="Script" uid="uid://nqgh5gvl7ruf" path="res://dungeon/room_generator.gd" id="1_ntbmw"]
+
+[node name="RoomGenerator" type="Node3D"]
+script = ExtResource("1_ntbmw")

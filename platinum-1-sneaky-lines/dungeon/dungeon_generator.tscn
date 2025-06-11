@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://0m4kmissfpvs"]
+
+[ext_resource type="Script" uid="uid://bhdfitwd1ular" path="res://dungeon/dungeon_generator.gd" id="1_m0h6w"]
+[ext_resource type="MeshLibrary" uid="uid://cacy4xkxy4ks0" path="res://dungeon/tiles.tres" id="2_hn3ex"]
+[ext_resource type="PackedScene" uid="uid://dhhy3dmnnoqyu" path="res://dungeon/room_generator.tscn" id="3_laeaj"]
+[ext_resource type="PackedScene" uid="uid://6nw35qv1re1m" path="res://entities/enemies/dragons/aspiring_water_dragon.tscn" id="4_qc450"]
+[ext_resource type="PackedScene" uid="uid://bdm755otib375" path="res://entities/enemies/dragons/aspiring_earth_dragon.tscn" id="5_csls0"]
+[ext_resource type="PackedScene" uid="uid://b7qjsm7cqjfyv" path="res://entities/enemies/dragons/aspiring_fire_dragon.tscn" id="6_kqts3"]
+[ext_resource type="PackedScene" uid="uid://c0ixrv7hnybb5" path="res://entities/enemies/dragons/aspiring_air_dragon.tscn" id="7_r1mc2"]
+[ext_resource type="PackedScene" uid="uid://bn2r2ofkv0dqk" path="res://entities/area/oops.tscn" id="8_csls0"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_fvjs7"]
+cell_size = 0.06
+cell_height = 0.06
+agent_height = 0.5
+agent_radius = 0.25
+agent_max_climb = 0.1
+agent_max_slope = 15.0
+
+[node name="DungeonGenerator" type="Node3D"]
+script = ExtResource("1_m0h6w")
+dungeon_size = 25
+extra_connection_chance = 1.0
+room_count = 100
+min_room_size = 1
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_hn3ex")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 65535, 3, 65535, 25, 3, 25, 65535, 3, 0, 65535, 3, 0, 25, 3, 25, 0, 3, 65535, 0, 3, 1, 65535, 3, 1, 25, 3, 25, 1, 3, 65535, 1, 3, 2, 65535, 3, 2, 25, 3, 25, 2, 3, 65535, 2, 3, 3, 65535, 3, 3, 25, 3, 25, 3, 3, 65535, 3, 3, 4, 65535, 3, 4, 25, 3, 25, 4, 3, 65535, 4, 3, 5, 65535, 3, 5, 25, 3, 25, 5, 3, 65535, 5, 3, 6, 65535, 3, 6, 25, 3, 25, 6, 3, 65535, 6, 3, 7, 65535, 3, 7, 25, 3, 25, 7, 3, 65535, 7, 3, 8, 65535, 3, 8, 25, 3, 25, 8, 3, 65535, 8, 3, 9, 65535, 3, 9, 25, 3, 25, 9, 3, 65535, 9, 3, 10, 65535, 3, 10, 25, 3, 25, 10, 3, 65535, 10, 3, 11, 65535, 3, 11, 25, 3, 25, 11, 3, 65535, 11, 3, 12, 65535, 3, 12, 25, 3, 25, 12, 3, 65535, 12, 3, 13, 65535, 3, 13, 25, 3, 25, 13, 3, 65535, 13, 3, 14, 65535, 3, 14, 25, 3, 25, 14, 3, 65535, 14, 3, 15, 65535, 3, 15, 25, 3, 25, 15, 3, 65535, 15, 3, 16, 65535, 3, 16, 25, 3, 25, 16, 3, 65535, 16, 3, 17, 65535, 3, 17, 25, 3, 25, 17, 3, 65535, 17, 3, 18, 65535, 3, 18, 25, 3, 25, 18, 3, 65535, 18, 3, 19, 65535, 3, 19, 25, 3, 25, 19, 3, 65535, 19, 3, 20, 65535, 3, 20, 25, 3, 25, 20, 3, 65535, 20, 3, 21, 65535, 3, 21, 25, 3, 25, 21, 3, 65535, 21, 3, 22, 65535, 3, 22, 25, 3, 25, 22, 3, 65535, 22, 3, 23, 65535, 3, 23, 25, 3, 25, 23, 3, 65535, 23, 3, 24, 65535, 3, 24, 25, 3, 25, 24, 3, 65535, 24, 3, 25, 25, 3)
+}
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_fvjs7")
+
+[node name="RoomGenerator" parent="NavigationRegion3D" node_paths=PackedStringArray("grid_map", "nav_region") instance=ExtResource("3_laeaj")]
+grid_map = NodePath("../../GridMap")
+nav_region = NodePath("..")
+navigation = true
+dragon_resources = Array[PackedScene]([ExtResource("4_qc450"), ExtResource("5_csls0"), ExtResource("6_kqts3"), ExtResource("7_r1mc2"), ExtResource("6_kqts3"), ExtResource("7_r1mc2"), ExtResource("4_qc450"), ExtResource("5_csls0")])
+
+[node name="Oops" parent="." instance=ExtResource("8_csls0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0878, 0, 14.1096)
+
+[connection signal="generation_finished" from="." to="NavigationRegion3D/RoomGenerator" method="create_dungeon"]
+[connection signal="generation_started" from="." to="NavigationRegion3D/RoomGenerator" method="_toggle_visibility"]

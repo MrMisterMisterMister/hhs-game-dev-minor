@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdm755otib375"]
+
+[ext_resource type="PackedScene" uid="uid://qr1qwydfvpcn" path="res://entities/enemies/dragons/aspiring_dragon.tscn" id="1_3eiva"]
+
+[node name="AspiringEarthDragon" instance=ExtResource("1_3eiva")]
+color = Color(0.552941, 0.486275, 0.352941, 1)
+type = 1
+
+[node name="SpotLight3D" parent="MeshInstance3D/Area3D" index="0"]
+light_color = Color(0.552941, 0.486275, 0.352941, 1)
+
+[node name="Label3D" parent="." index="2"]
+modulate = Color(0.552941, 0.486275, 0.352941, 1)
+text = "Aspiring Earth Dragon"
+
+[node name="OmniLight3D" parent="." index="4"]
+light_color = Color(0.686275, 0.619608, 0.454902, 1)

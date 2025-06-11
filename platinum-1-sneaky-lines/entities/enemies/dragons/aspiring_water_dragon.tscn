@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://6nw35qv1re1m"]
+
+[ext_resource type="PackedScene" uid="uid://qr1qwydfvpcn" path="res://entities/enemies/dragons/aspiring_dragon.tscn" id="1_wflcy"]
+[ext_resource type="Texture2D" uid="uid://cw1r6a4fjrb0p" path="res://icon.svg" id="2_c67dp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bmti"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("2_c67dp")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wbe0c"]
+material = SubResource("StandardMaterial3D_1bmti")
+radius = 0.125
+height = 0.5
+
+[node name="AspiringWaterDragon" instance=ExtResource("1_wflcy")]
+color = Color(0, 0, 1, 1)
+type = 0
+
+[node name="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("CapsuleMesh_wbe0c")
+
+[node name="SpotLight3D" parent="MeshInstance3D/Area3D" index="0"]
+light_color = Color(0, 0, 1, 1)
+
+[node name="Label3D" parent="." index="2"]
+text = "Aspiring Water Dragon"
+
+[node name="OmniLight3D" parent="." index="4"]
+light_color = Color(0, 0, 1, 1)
