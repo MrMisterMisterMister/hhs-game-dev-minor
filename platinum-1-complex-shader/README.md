@@ -91,7 +91,7 @@ rotation the original object had and forcing it to perfectly align with the
 camera's X, Y, and Z axes. This makes the object always face the camera flat-on, regardless of its own initial rotation.
 
 `billboard_matrix[3] = VIEW_MATRIX * MODEL_MATRIX[3]` takes the camera's view, 
-and then put our object's actual position (MODEL_MATRIX[3]) into it.
+and then put our object's actual position (`MODEL_MATRIX[3]`) into it.
 
 `billboard_matrix[0][0]` is essentially the scaling/rotation along the X-axis.
 
