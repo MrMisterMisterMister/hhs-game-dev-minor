@@ -1,6 +1,5 @@
-[gd_scene load_steps=25 format=3 uid="uid://bb6wswx88qvc8"]
+[gd_scene load_steps=28 format=3 uid="uid://bb6wswx88qvc8"]
 
-[ext_resource type="Texture2D" uid="uid://btp2e6u8ly64g" path="res://icon.svg" id="1_ig7tw"]
 [ext_resource type="Shader" uid="uid://dkos67wwohy4m" path="res://shaders/splash.gdshader" id="2_0xm2m"]
 [ext_resource type="Shader" uid="uid://d1i1vm8q0dtao" path="res://shaders/splatter.gdshader" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://cr00t4jgico2n" path="res://utils/camera.gd" id="4_1bvp3"]
@@ -21,11 +20,14 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
 albedo_color = Color(0.180005, 0.180005, 0.180005, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
-albedo_texture = ExtResource("1_ig7tw")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2yge"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_texture = SubResource("CompressedTexture2D_h2yge")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_272bh"]
-material = SubResource("StandardMaterial3D_7mycd")
+material = SubResource("StandardMaterial3D_1bvp3")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0xm2m"]
 noise_type = 3
@@ -97,6 +99,16 @@ scale_curve = SubResource("CurveTexture_7mycd")
 [sub_resource type="QuadMesh" id="QuadMesh_5vw27"]
 orientation = 1
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lquwl"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("CompressedTexture2D_lquwl")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5vw27"]
+material = SubResource("StandardMaterial3D_7mycd")
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -141,6 +153,32 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_272bh")
 draw_pass_1 = SubResource("QuadMesh_5vw27")
 
+[node name="Entity2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.5589, 2.73994, 0)
+mesh = SubResource("CapsuleMesh_5vw27")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Entity2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146654, 0)
+material_override = SubResource("ShaderMaterial_h2yge")
+instance_shader_parameters/main_color = Color(0.886275, 0.105882, 0.109804, 1)
+amount = 100
+sub_emitter = NodePath("../GPUParticles3D2")
+lifetime = 5.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_h2yge")
+draw_pass_1 = SubResource("PlaneMesh_1bvp3")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Entity2"]
+material_override = SubResource("ShaderMaterial_1bvp3")
+instance_shader_parameters/main_color = Color(0.898039, 0.105882, 0.109804, 1)
+emitting = false
+amount = 300
+lifetime = 30.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_272bh")
+draw_pass_1 = SubResource("QuadMesh_5vw27")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.29083, -4.19345)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -5.07394, 2.29083, -7.29716)
 script = ExtResource("4_1bvp3")
