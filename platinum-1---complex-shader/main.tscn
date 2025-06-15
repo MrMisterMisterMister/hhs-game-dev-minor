@@ -1,0 +1,146 @@
+[gd_scene load_steps=25 format=3 uid="uid://bb6wswx88qvc8"]
+
+[ext_resource type="Texture2D" uid="uid://btp2e6u8ly64g" path="res://icon.svg" id="1_ig7tw"]
+[ext_resource type="Shader" uid="uid://dkos67wwohy4m" path="res://shaders/splash.gdshader" id="2_0xm2m"]
+[ext_resource type="Shader" uid="uid://d1i1vm8q0dtao" path="res://shaders/splatter.gdshader" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cr00t4jgico2n" path="res://utils/camera.gd" id="4_1bvp3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0xm2m"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_h2yge"]
+sky_material = SubResource("ProceduralSkyMaterial_0xm2m")
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+background_mode = 2
+sky = SubResource("Sky_h2yge")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(0.180005, 0.180005, 0.180005, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+albedo_texture = ExtResource("1_ig7tw")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_272bh"]
+material = SubResource("StandardMaterial3D_7mycd")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0xm2m"]
+noise_type = 3
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h2yge"]
+noise = SubResource("FastNoiseLite_0xm2m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
+render_priority = 0
+shader = ExtResource("2_0xm2m")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_h2yge")
+shader_parameter/distortion_amount = 0.1
+shader_parameter/noise_power = 5.0
+shader_parameter/base_alpha = 0.8
+shader_parameter/angle_influence = 0.5
+shader_parameter/gradient_strength = 2.0
+
+[sub_resource type="Curve" id="Curve_1bvp3"]
+_data = [Vector2(0, 0.674157), 0.0, 0.0, 0, 0, Vector2(0.157676, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lquwl"]
+curve = SubResource("Curve_1bvp3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h2yge"]
+spread = 180.0
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+linear_accel_min = 4.0
+linear_accel_max = 4.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_lquwl")
+collision_mode = 2
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1bvp3"]
+orientation = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lquwl"]
+noise_type = 3
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7mycd"]
+noise = SubResource("FastNoiseLite_lquwl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bvp3"]
+render_priority = 0
+shader = ExtResource("3_h2yge")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_7mycd")
+shader_parameter/splatter_scale = 2.0
+shader_parameter/distortion_amount = 0.1
+shader_parameter/edge_variation = 1.0
+shader_parameter/noise_power = 1.0
+
+[sub_resource type="Curve" id="Curve_lquwl"]
+_data = [Vector2(0, 0.696629), 0.0, 0.0, 0, 0, Vector2(0.178423, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7mycd"]
+curve = SubResource("Curve_lquwl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_272bh"]
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_7mycd")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5vw27"]
+orientation = 1
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(500, 1, 500)
+material = SubResource("StandardMaterial3D_lquwl")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493144, 0)
+size = Vector3(500, 1, 500)
+
+[node name="Entity" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.73994, 0)
+mesh = SubResource("CapsuleMesh_272bh")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Entity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146654, 0)
+material_override = SubResource("ShaderMaterial_h2yge")
+instance_shader_parameters/main_color = Color(0.258824, 0.521569, 0.709804, 1)
+amount = 100
+sub_emitter = NodePath("../GPUParticles3D2")
+lifetime = 5.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_h2yge")
+draw_pass_1 = SubResource("PlaneMesh_1bvp3")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="Entity"]
+material_override = SubResource("ShaderMaterial_1bvp3")
+instance_shader_parameters/main_color = Color(0.235294, 0.517647, 0.690196, 1)
+emitting = false
+amount = 300
+lifetime = 30.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_272bh")
+draw_pass_1 = SubResource("QuadMesh_5vw27")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.29083, -4.19345)
+script = ExtResource("4_1bvp3")
